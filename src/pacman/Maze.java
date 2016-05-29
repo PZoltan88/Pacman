@@ -34,10 +34,10 @@ public class Maze {
 
     public Maze() {
 
-        Initialize();
+        initialize();
     }
 
-    public void Initialize() {
+    public void initialize() {
 
         realm = new MazeItem[SIZEY][SIZEX];
 
@@ -54,6 +54,7 @@ public class Maze {
         touchedItems = 1;
         currentItem = realm[0][0];
         itemStack.clear();
+        makeMazeExplorable();
         seed();
     }
 
@@ -169,7 +170,7 @@ public class Maze {
         return realm[y][x];
     }
 
-    public ArrayList GetNeighborFieldsWithWalls(MazeItem item) {
+    public ArrayList getNeighborFieldsWithWalls(MazeItem item) {
         ArrayList<MazeItem> Neighbors = new ArrayList<>();
 
         // has left neighbor?
@@ -196,13 +197,13 @@ public class Maze {
     /// <summary>
     /// Main logic to make the maze explorable - every field of the maze should be accessible by Pac
     /// </summary>
-    public void MakeMazeExplorable() {
+    public void makeMazeExplorable() {
 
         int realmSize = SIZEX * SIZEY;
         currentItem = realm[0][0];
 
         while (touchedItems < realmSize) {
-            ArrayList<MazeItem> neighborFieldsWithWalls = GetNeighborFieldsWithWalls(currentItem);
+            ArrayList<MazeItem> neighborFieldsWithWalls = getNeighborFieldsWithWalls(currentItem);
             if (neighborFieldsWithWalls.size() > 0) {
                 int randomNum0ToWallNr = randomizer.nextInt(neighborFieldsWithWalls.size());
                 MazeItem randomField = neighborFieldsWithWalls.toArray(new MazeItem[0])[randomNum0ToWallNr];
@@ -229,7 +230,7 @@ public class Maze {
     public void seedDots() {
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
-                if (!((i.getItemContent().contains(content.GHOST)) && (i.getItemContent().contains(content.PAC)))) {
+                if (!((i.getItemContent().contains(content.GHOST)) || (i.getItemContent().contains(content.PAC)))) {
                     i.getItemContent().add(content.DOT);
                 }
 
@@ -263,6 +264,6 @@ public class Maze {
     }
 
     private void reset() {
-        Initialize();
+        initialize();
     }
 }
