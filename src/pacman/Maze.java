@@ -17,10 +17,10 @@ import pacman.MazeItem.direction;
  */
 public class Maze {
 
-    public final int SIZEX = 15;
-    public final int SIZEY = 20;
-    public final int DOTSCORE = 100;
-    public final int SCOREPERLIFE = 10000;
+    public static final int SIZEX = 15;
+    public static final int SIZEY = 20;
+    public static final int DOTSCORE = 100;
+    public static final int SCOREPERLIFE = 10000;
     private Game currentGame;
     int pacPosX;
     int pacPosY;
