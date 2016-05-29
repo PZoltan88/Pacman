@@ -20,7 +20,7 @@ public class Pacman extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);        
     }
-
+/*
     public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
@@ -32,4 +32,5 @@ public class Pacman extends JFrame {
             }
         });
     }
+    */
 }
