@@ -58,6 +58,7 @@ public class MazeGridItem extends JPanel {
         JLabel imgLbl = new JLabel(new ImageIcon(img));
         imgLbl.setSize(FIELDSIZE / 2, FIELDSIZE / 2);
         add(imgLbl);
+        setBackground(Color.CYAN);
         setVisible(true);
     }
 

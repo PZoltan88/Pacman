@@ -109,12 +109,22 @@ public class GUI extends JPanel {
         }
 
         public void redraw() {
+            /*
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             //grid.invalidate();
-            grid.removeAll();
-            //grid.revalidate();
+            remove(grid);
+            grid.revalidate();
             grid.draw(model);
-            grid.validate();
-            grid.repaint();
+            //add(grid);
+            validate();
+            topFrame.repaint();
+            */
+            grid.removeAll();
+              //grid.revalidate();
+              grid.draw(model);
+             
+             grid.revalidate();
+              grid.repaint();
         }
        
         /*
