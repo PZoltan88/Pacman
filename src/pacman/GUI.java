@@ -87,13 +87,39 @@ public class GUI extends JPanel {
 
         private MazeGrid grid;
         private Maze model;
+        JLabel lifesLbl;
+            JLabel lifes;
+            
+            JLabel scoreLbl;
+            JLabel score;
+            
+            JLabel levelLbl;
+            JLabel level;
+            
+        
 
         public MazeGUI(Maze maze) {
+             lifesLbl = new JLabel("Lifes");
+             lifes=new JLabel();
+            
+             scoreLbl = new JLabel("Score");
+             score=new JLabel();
+            
+             levelLbl = new JLabel("Level");
+             level=new JLabel();
+            
             this.model = maze;
+            setStatusBar();
             grid = new MazeGrid(maze);
             setFocusable(true);
             requestFocusInWindow();
             //addKeyListener(this);
+            add(lifesLbl);
+            add(lifes);
+            add(scoreLbl);
+            add(score);
+            add(levelLbl);
+            add(level);
             add(grid);
 
             final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
@@ -102,10 +128,19 @@ public class GUI extends JPanel {
                 public void run() {
 
                     model.moveGhost();
-                    redraw();
+                    //redraw();
                 }
             }, 0, 1, TimeUnit.SECONDS);
             setKeyBindings();
+        }
+        
+        public void setStatusBar()
+        {
+            
+            lifes.setText(model.getCurrentGame().getLife()+"");
+            
+            score.setText(model.getCurrentGame().getScore()+model.getSessionScore()+"");
+            level.setText(model.getCurrentGame().getLevel()+"");
         }
 
         public void redraw() {
@@ -119,12 +154,16 @@ public class GUI extends JPanel {
             validate();
             topFrame.repaint();
             */
+            //removeAll();
             grid.removeAll();
               //grid.revalidate();
               grid.draw(model);
+              setStatusBar();
              
-             grid.revalidate();
+             grid.validate();
               grid.repaint();
+              //validate();
+              //repaint();
         }
        
         /*

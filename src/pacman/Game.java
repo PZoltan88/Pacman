@@ -59,5 +59,11 @@ public class Game {
     {
         
     }
+
+    @Override
+    public String toString() {
+        return "Game{" + "level=" + level + ", difficulty=" + difficulty + ", score=" + score + ", life=" + life + '}';
+    }
+    
     
 }

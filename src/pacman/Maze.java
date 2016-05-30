@@ -22,6 +22,7 @@ public class Maze {
     public static final int DOTSCORE = 100;
     public static final int SCOREPERLIFE = 10000;
     private Game currentGame;
+    private int sessionScore;
     int pacPosX;
     int pacPosY;
 
@@ -73,6 +74,30 @@ public class Maze {
             }
             System.out.println();
         } 
+    }
+    
+    public void levelComplete()
+    {
+        currentGame.setLevel(currentGame.getLevel()+1);
+        currentGame.setScore(currentGame.getScore()+sessionScore);
+        if (currentGame.getScore() % SCOREPERLIFE == 0) {
+            addOneLife();
+        }
+        reset();
+        System.out.println("level complete "+currentGame.toString());
+    }
+    
+    public int nrDots()
+    {
+        int r=0;
+        for (MazeItem[] arr : realm) {
+            for (MazeItem i : arr) {
+                if (i.getItemContent().contains(content.DOT)) {
+                    r++;
+                }
+            }
+        }
+        return r;
     }
     
     public direction getRandomDirection() {
@@ -182,6 +207,7 @@ public class Maze {
         if (currentGame.getLife() == 0) {
             currentGame.gameOver();
         }
+        System.out.println("life lost "+currentGame.toString());
 
     }
 
@@ -190,10 +216,9 @@ public class Maze {
     }
 
     public void addScore() {
-        currentGame.setScore(currentGame.getScore() + DOTSCORE);
-        if (currentGame.getScore() % SCOREPERLIFE == 0) {
-            addOneLife();
-        }
+        sessionScore += DOTSCORE;
+        System.out.println("new score "+sessionScore);
+        
     }
 
     
@@ -285,10 +310,15 @@ public class Maze {
         dest.getItemContent().add(content.PAC);
         dest.getItemContent().remove(content.DOT);
         addScore();
+        if (nrDots()==0)
+        {
+            levelComplete();
+        }
     }
 
     private void pacDie(MazeItem a, MazeItem b) {
         removeOneLife();
+        sessionScore=0;
         reset();
     }
 
@@ -307,6 +337,10 @@ public class Maze {
 
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
+    }
+
+    public int getSessionScore() {
+        return sessionScore;
     }
     
     
