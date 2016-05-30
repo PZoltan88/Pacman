@@ -5,6 +5,9 @@
  */
 package pacman;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -88,39 +91,56 @@ public class GUI extends JPanel {
         private MazeGrid grid;
         private Maze model;
         JLabel lifesLbl;
-            JLabel lifes;
-            
-            JLabel scoreLbl;
-            JLabel score;
-            
-            JLabel levelLbl;
-            JLabel level;
-            
-        
+        JLabel lifes;
+
+        JLabel scoreLbl;
+        JLabel score;
+
+        JLabel levelLbl;
+        JLabel level;
 
         public MazeGUI(Maze maze) {
-             lifesLbl = new JLabel("Lifes");
-             lifes=new JLabel();
-            
-             scoreLbl = new JLabel("Score");
-             score=new JLabel();
-            
-             levelLbl = new JLabel("Level");
-             level=new JLabel();
-            
+            lifesLbl = new JLabel("Lifes");
+            lifes = new JLabel();
+
+            scoreLbl = new JLabel("Score");
+            score = new JLabel();
+
+            levelLbl = new JLabel("Level");
+            level = new JLabel();
+
             this.model = maze;
             setStatusBar();
             grid = new MazeGrid(maze);
             setFocusable(true);
             requestFocusInWindow();
             //addKeyListener(this);
-            add(lifesLbl);
-            add(lifes);
-            add(scoreLbl);
-            add(score);
-            add(levelLbl);
-            add(level);
-            add(grid);
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            //gbc.anchor = GridBagConstraints.CENTER;
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            add(lifesLbl, gbc);
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            add(lifes, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            add(scoreLbl, gbc);
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            add(score, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            add(levelLbl, gbc);
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            add(level, gbc);
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            gbc.insets=new Insets(30,0,0,0);
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(grid, gbc);
 
             final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
@@ -133,49 +153,48 @@ public class GUI extends JPanel {
             }, 0, 1, TimeUnit.SECONDS);
             setKeyBindings();
         }
-        
-        public void setStatusBar()
-        {
-            
-            lifes.setText(model.getCurrentGame().getLife()+"");
-            
-            score.setText(model.getCurrentGame().getScore()+model.getSessionScore()+"");
-            level.setText(model.getCurrentGame().getLevel()+"");
+
+        public void setStatusBar() {
+
+            lifes.setText(model.getCurrentGame().getLife() + "");
+
+            score.setText(model.getCurrentGame().getScore() + model.getSessionScore() + "");
+            level.setText(model.getCurrentGame().getLevel() + "");
         }
 
         public void redraw() {
             /*
-            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            //grid.invalidate();
-            remove(grid);
-            grid.revalidate();
-            grid.draw(model);
-            //add(grid);
-            validate();
-            topFrame.repaint();
-            */
+             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+             //grid.invalidate();
+             remove(grid);
+             grid.revalidate();
+             grid.draw(model);
+             //add(grid);
+             validate();
+             topFrame.repaint();
+             */
             //removeAll();
             grid.removeAll();
-              //grid.revalidate();
-              grid.draw(model);
-              setStatusBar();
-             
-             grid.validate();
-              grid.repaint();
+            //grid.revalidate();
+            grid.draw(model);
+            setStatusBar();
+
+            grid.validate();
+            grid.repaint();
               //validate();
-              //repaint();
+            //repaint();
         }
-       
+
         /*
-        public void redraw()
-        {
-           //this.remove(grid);
-           grid = new MazeGrid(model);
-           add(grid);
-            setVisible(true);
-            //return redrawn;
-        }
-*/
+         public void redraw()
+         {
+         //this.remove(grid);
+         grid = new MazeGrid(model);
+         add(grid);
+         setVisible(true);
+         //return redrawn;
+         }
+         */
         public Maze getModel() {
             return model;
         }
@@ -183,7 +202,7 @@ public class GUI extends JPanel {
         public void setModel(Maze model) {
             this.model = model;
         }
-        
+
         private void setKeyBindings() {
             ActionMap actionMap = getActionMap();
             int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
