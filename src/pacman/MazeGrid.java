@@ -5,6 +5,7 @@
  */
 package pacman;
 
+import java.awt.GridLayout;
 import javax.swing.JPanel;
 import pacman.Maze;
 
@@ -18,6 +19,8 @@ public class MazeGrid extends JPanel{
     public MazeGrid() {
         
         grid= new MazeGridItem[Maze.SIZEY][Maze.SIZEX];
+        setLayout(new GridLayout(Maze.SIZEX, Maze.SIZEY));
+        draw();
     }
     
     
@@ -28,7 +31,8 @@ public class MazeGrid extends JPanel{
         {
             for(MazeGridItem i : arr)
             {
-                i.draw();
+                i = new MazeGridItem();
+                //i.draw();
                 add(i);
             }
         }

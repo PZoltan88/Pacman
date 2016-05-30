@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -25,12 +26,16 @@ public class MazeGridItem extends JPanel {
     public static final int FIELDSIZE = 10;
 
     public MazeGridItem() {
-        point= new Point(0,0);
+        //point= new Point(0,0);
+        draw();
     }
 
     
     public void draw() {
-        repaint();
+        //repaint();
+        setSize(FIELDSIZE, FIELDSIZE);
+        setBorder(new LineBorder(Color.BLACK));
+        setVisible(true);
     }
 
     public void loadImage(String imgName) {
@@ -40,7 +45,7 @@ public class MazeGridItem extends JPanel {
         } catch (IOException e) {
         }
     }
-
+/*
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
@@ -51,5 +56,5 @@ public class MazeGridItem extends JPanel {
         g.setColor(Color.BLACK);
             g.drawRect(0,0,50,50);
     }
-
+*/
 }

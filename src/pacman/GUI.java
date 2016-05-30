@@ -22,12 +22,12 @@ public class GUI extends JPanel {
     private MazeGrid grid;
 
     public GUI() {
-        //grid=new MazeGrid();
+        grid=new MazeGrid();
         //grid.draw();
-        //add(grid);
-        MazeGridItem gridItemTest=new MazeGridItem();
-        gridItemTest.draw();
-        add(gridItemTest);
+        add(grid);
+        //MazeGridItem gridItemTest=new MazeGridItem();
+        //gridItemTest.draw();
+        //add(gridItemTest);
         initFrame();
     }
 
