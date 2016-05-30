@@ -51,9 +51,11 @@ public class Maze {
             }
 
         }
+        
         touchedItems = 1;
         currentItem = realm[0][0];
         itemStack.clear();
+        
         makeMazeExplorable();
         print();
         seed();
@@ -192,15 +194,15 @@ public class Maze {
             Neighbors.add(realm[item.getPosY()][item.getPosX() - 1]);
         }
         // has right neighbor?
-        if ((item.getPosX()) + 1 < SIZEX && (realm[item.getPosY()][item.getPosX() + 1].HasAllWalls())) {
+        if (((item.getPosX() + 1) < SIZEX) && (realm[item.getPosY()][item.getPosX() + 1].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY()][item.getPosX() + 1]);
         }
         // has top neighbor?
-        if (0 <= (item.getPosY()) - 1 && (realm[item.getPosY() - 1][item.getPosX()].HasAllWalls())) {
+        if ((0 <= (item.getPosY() - 1)) && (realm[item.getPosY() - 1][item.getPosX()].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY() - 1][item.getPosX()]);
         }
         // has bottom neighbor?
-        if ((item.getPosY()) + 1 < SIZEY && (realm[item.getPosY() + 1][item.getPosX()].HasAllWalls())) {
+        if (((item.getPosY() + 1) < SIZEY) && (realm[item.getPosY() + 1][item.getPosX()].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY() + 1][item.getPosX()]);
         }
 

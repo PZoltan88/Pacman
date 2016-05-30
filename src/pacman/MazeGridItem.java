@@ -105,8 +105,10 @@ public class MazeGridItem extends JPanel {
 
     @Override
     public String toString() {
-        return "MazeGridItem{" + "payload=" + payload + '}';
+        return "MazeGridItem{" + "topBorder=" + topBorder + ", bottomBorder=" + bottomBorder + ", rightBorder=" + rightBorder + ", leftBorder=" + leftBorder + '}';
     }
+
+    
     
     
 }

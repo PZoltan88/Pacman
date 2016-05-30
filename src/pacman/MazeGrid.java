@@ -29,7 +29,7 @@ public class MazeGrid extends JPanel{
     public MazeGrid(Maze model)
     {
         grid= new MazeGridItem[Maze.SIZEY][Maze.SIZEX];
-        setLayout(new GridLayout(Maze.SIZEX, Maze.SIZEY));
+        setLayout(new GridLayout(Maze.SIZEY, Maze.SIZEX));
         //print();
         
         draw(model);

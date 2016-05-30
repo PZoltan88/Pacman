@@ -194,8 +194,10 @@ public class MazeItem
 
     @Override
     public String toString() {
-        return "MazeItem{" + "itemContent=" + itemContent + '}';
+        return "MazeItem{" + "hasNorthWall=" + hasNorthWall + ", hasSouthWall=" + hasSouthWall + ", hasEastWall=" + hasEastWall + ", hasWestWall=" + hasWestWall + ", posX=" + posX + ", posY=" + posY + '}';
     }
+
+    
     
     
 
