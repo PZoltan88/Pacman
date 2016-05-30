@@ -17,8 +17,8 @@ import pacman.MazeItem.direction;
  */
 public class Maze {
 
-    public static final int SIZEX = 3;
-    public static final int SIZEY = 4;
+    public static final int SIZEX = 2;
+    public static final int SIZEY = 3;
     public static final int DOTSCORE = 100;
     public static final int SCOREPERLIFE = 10000;
     private Game currentGame;
@@ -57,10 +57,10 @@ public class Maze {
         itemStack.clear();
         
         makeMazeExplorable();
-        print();
+        //print();
         seed();
         System.out.println("seed complete");
-        print();
+        //print();
     }
 
     public void print()
@@ -266,8 +266,9 @@ public class Maze {
     //public virtual void Deserialize();
     private void pacEat(MazeItem src, MazeItem dest) {
         src.getItemContent().remove(content.PAC);
+        src.getItemContent().add(content.EMPTY);
         dest.getItemContent().add(content.PAC);
-        dest.getItemContent().remove(content.PAC);
+        dest.getItemContent().remove(content.DOT);
         addScore();
     }
 
@@ -284,4 +285,14 @@ public class Maze {
     private void reset() {
         initialize();
     }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
+    }
+    
+    
 }

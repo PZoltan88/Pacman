@@ -5,6 +5,11 @@
  */
 package pacman;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,18 +21,24 @@ import static javax.swing.JFrame.*;
  *
  * @author Kornél
  */
-public class GUI extends JPanel {
+public class GUI extends JPanel implements KeyListener{
 
     //private Maze maze;
     private MazeGrid grid;
+    private Maze model;
 
     public GUI(Maze maze) {
+        this.model=maze;
         grid=new MazeGrid(maze);
         //grid.draw();
-        add(grid);
+        
         //MazeGridItem gridItemTest=new MazeGridItem();
         //gridItemTest.draw();
         //add(gridItemTest);
+        //this.addKeyListener(this);
+        add(grid);
+           
+        
         initFrame();
     }
 
@@ -35,6 +46,7 @@ public class GUI extends JPanel {
         JFrame topFrame = new JFrame();
 
         topFrame.add(this);
+        topFrame.addKeyListener(this);
         topFrame.setTitle("Pacman");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         topFrame.setSize(800, 600);
@@ -42,9 +54,70 @@ public class GUI extends JPanel {
         topFrame.setVisible(true);
     }
 
-    public void drawMaze() {
+    public void redraw()
+    {
+        grid.removeAll();
+        grid.draw(model);
+        grid.revalidate();
+        grid.repaint();
+    }
+    
+    public Maze getModel() {
+        return model;
+    }
+
+    public void setModel(Maze model) {
+        this.model = model;
+    }
+    
+     @Override
+    public void keyPressed(KeyEvent e) {
+
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            System.out.println("Right key pressed");
+            model.movePac(MazeItem.direction.EAST);
+            redraw();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            System.out.println("Left key pressed");
+            model.movePac(MazeItem.direction.WEST);
+            redraw();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            System.out.println("Up key pressed");
+            model.movePac(MazeItem.direction.NORTH);
+            redraw();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            System.out.println("Down key pressed");
+            model.movePac(MazeItem.direction.SOUTH);
+            redraw();
+        }
+        //System.out.println("key pressed");
 
     }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            //System.out.println("Right key Released");
+        }
+        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            //System.out.println("Left key Released");
+            
+        }
+        //System.out.println("key released");
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //System.out.println("key typed");
+    }
+
+    
+
+    
 
     
 

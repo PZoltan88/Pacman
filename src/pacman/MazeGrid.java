@@ -34,7 +34,7 @@ public class MazeGrid extends JPanel{
         
         draw(model);
         System.out.println("draw complete");
-        print();
+        //print();
     }
     
     
@@ -65,6 +65,8 @@ public class MazeGrid extends JPanel{
                 add(grid[i][j]);
             }
         }
+        System.out.println("draw complete");
+        print();
     }
     
     public void print()

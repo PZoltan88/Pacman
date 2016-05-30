@@ -18,6 +18,7 @@ public class Main {
             @Override
             public void run() {
                 Maze m=new Maze();
+                m.setCurrentGame(new Game());
                 GUI g = new GUI(m);
             }
         });
