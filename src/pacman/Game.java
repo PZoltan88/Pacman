@@ -14,12 +14,14 @@ public class Game {
     private int difficulty;
     private int score;
     private int life;
+    private boolean gameActive;
 
     public Game() {
         level=1;
         difficulty=1;
         score=0;
         life=3;
+        gameActive=true;
     }
 
     
@@ -57,8 +59,14 @@ public class Game {
     
     public void gameOver()
     {
-        
+        gameActive=false;
     }
+
+    public boolean isGameActive() {
+        return gameActive;
+    }
+    
+    
 
     @Override
     public String toString() {

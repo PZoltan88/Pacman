@@ -183,6 +183,10 @@ public class GUI extends JPanel {
             grid.repaint();
               //validate();
             //repaint();
+            if (!model.getCurrentGame().isGameActive())
+            {
+                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
         /*
