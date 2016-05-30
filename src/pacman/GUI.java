@@ -18,11 +18,11 @@ import static javax.swing.JFrame.*;
  */
 public class GUI extends JPanel {
 
-    private Maze maze;
+    //private Maze maze;
     private MazeGrid grid;
 
-    public GUI() {
-        grid=new MazeGrid();
+    public GUI(Maze maze) {
+        grid=new MazeGrid(maze);
         //grid.draw();
         add(grid);
         //MazeGridItem gridItemTest=new MazeGridItem();
@@ -37,7 +37,7 @@ public class GUI extends JPanel {
         topFrame.add(this);
         topFrame.setTitle("Pacman");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        topFrame.setSize(380, 420);
+        topFrame.setSize(800, 600);
         topFrame.setLocationRelativeTo(null);
         topFrame.setVisible(true);
     }

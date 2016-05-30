@@ -8,6 +8,7 @@ package pacman;
 
 import java.util.*;
 import java.util.EnumSet;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -47,7 +48,7 @@ public class MazeItem
        
         public MazeItem()
         {
-            new MazeItem(true, true, true, true, 0,0);
+            this(true, true, true, true, 0,0);
         }
 
         public MazeItem(boolean hasNorthWall, boolean hasSouthWall, boolean hasEastWall, boolean hasWestWall, int posX, int posY)
@@ -58,6 +59,7 @@ public class MazeItem
             this.hasWestWall = hasWestWall;
             this.posX = posX;
             this.posY = posY;
+            itemContent = new ArrayList<content>();
         }
 
        

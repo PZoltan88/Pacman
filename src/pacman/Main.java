@@ -17,7 +17,8 @@ public class Main {
 
             @Override
             public void run() {
-                GUI g = new GUI();
+                Maze m=new Maze();
+                GUI g = new GUI(m);
             }
         });
     }
