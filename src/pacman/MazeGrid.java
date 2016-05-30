@@ -41,17 +41,8 @@ public class MazeGrid extends JPanel{
     
     public void draw(Maze model)
     {
-        /*
-        for (MazeGridItem[] arr : grid)
-        {
-            for(MazeGridItem i : arr)
-            {
-                i = new MazeGridItem();
-                //i.draw();
-                add(i);
-            }
-        }
-                */
+        
+                
         for (int i=0; i<Maze.SIZEY;i++)
         {
             for (int j=0; j<Maze.SIZEX;j++)
@@ -66,7 +57,7 @@ public class MazeGrid extends JPanel{
             }
         }
         System.out.println("draw complete");
-        print();
+        //print();
     }
     
     public void print()

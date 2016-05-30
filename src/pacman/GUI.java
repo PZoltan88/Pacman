@@ -22,40 +22,60 @@ import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Kornél
  */
-public class GUI extends JPanel implements KeyListener {
+public class GUI extends JPanel {
 
     //private Maze maze;
-    private MazeGrid grid;
-    private Maze model;
-
     public GUI(Maze maze) {
-        this.model = maze;
-        grid = new MazeGrid(maze);        
-        add(grid);
 
+        JButton newGame = new JButton("New game");
+        JButton highScores = new JButton("Highscores");
+        JButton exit = new JButton("Exit");
+
+        newGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MazeGUI mgui = new MazeGUI(maze);
+                removeAll();
+                add(mgui);
+                revalidate();
+                repaint();
+            }
+
+        });
+
+        exit.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(1);
+            }
+
+        });
+
+        add(newGame);
+        add(highScores);
+        add(exit);
         initFrame();
 
-        final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleWithFixedDelay(new Runnable() {
-            @Override
-            public void run() {
-                
-                model.moveGhost();
-                redraw();
-            }
-        }, 0, 1, TimeUnit.SECONDS);
     }
 
     private void initFrame() {
         JFrame topFrame = new JFrame();
-
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         topFrame.add(this);
-        topFrame.addKeyListener(this);
+        //topFrame.addKeyListener(mgui);
         topFrame.setTitle("Pacman");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         topFrame.setSize(800, 600);
@@ -63,57 +83,101 @@ public class GUI extends JPanel implements KeyListener {
         topFrame.setVisible(true);
     }
 
-    public void redraw() {
-        grid.removeAll();
-        grid.draw(model);
-        grid.revalidate();
-        grid.repaint();
-    }
+    private class MazeGUI extends JPanel {
 
-    public Maze getModel() {
-        return model;
-    }
+        private MazeGrid grid;
+        private Maze model;
 
-    public void setModel(Maze model) {
-        this.model = model;
-    }
+        public MazeGUI(Maze maze) {
+            this.model = maze;
+            grid = new MazeGrid(maze);
+            setFocusable(true);
+            requestFocusInWindow();
+            //addKeyListener(this);
+            add(grid);
 
-    @Override
-    public void keyPressed(KeyEvent e) {
+            final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+            service.scheduleWithFixedDelay(new Runnable() {
+                @Override
+                public void run() {
 
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            System.out.println("Right key pressed");
-            model.movePac(MazeItem.direction.EAST);
-            redraw();
+                    model.moveGhost();
+                    redraw();
+                }
+            }, 0, 1, TimeUnit.SECONDS);
+            setKeyBindings();
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            System.out.println("Left key pressed");
-            model.movePac(MazeItem.direction.WEST);
-            redraw();
-        }
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            System.out.println("Up key pressed");
-            model.movePac(MazeItem.direction.NORTH);
-            redraw();
-        }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            System.out.println("Down key pressed");
-            model.movePac(MazeItem.direction.SOUTH);
-            redraw();
-        }
-        //System.out.println("key pressed");
 
-    }
+        public void redraw() {
+            grid.removeAll();
+            //grid.revalidate();
+            grid.draw(model);
+            grid.revalidate();
+            grid.repaint();
+        }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
+        public Maze getModel() {
+            return model;
+        }
+
+        public void setModel(Maze model) {
+            this.model = model;
+        }
         
-    }
+        private void setKeyBindings() {
+            ActionMap actionMap = getActionMap();
+            int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
+            InputMap inputMap = getInputMap(condition);
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //System.out.println("key typed");
+            String vkLeft = "VK_LEFT";
+            String vkRight = "VK_RIGHT";
+            String vkUp = "VK_UP";
+            String vkDown = "VK_DOWN";
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
+            inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
+
+            actionMap.put(vkLeft, new KeyAction(vkLeft));
+            actionMap.put(vkRight, new KeyAction(vkRight));
+            actionMap.put(vkUp, new KeyAction(vkUp));
+            actionMap.put(vkDown, new KeyAction(vkDown));
+
+        }
+
+        private class KeyAction extends AbstractAction {
+
+            public KeyAction(String actionCommand) {
+                putValue(ACTION_COMMAND_KEY, actionCommand);
+            }
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvt) {
+                //System.out.println(actionEvt.getActionCommand() + " pressed");
+                switch (actionEvt.getActionCommand()) {
+                    case "VK_LEFT":
+                        System.out.println("left pressed");
+                        model.movePac(MazeItem.direction.WEST);
+                        redraw();
+                        break;
+                    case "VK_RIGHT":
+                        System.out.println("right pressed");
+                        model.movePac(MazeItem.direction.EAST);
+                        redraw();
+                        break;
+                    case "VK_UP":
+                        System.out.println("left pressed");
+                        model.movePac(MazeItem.direction.NORTH);
+                        redraw();
+                        break;
+                    case "VK_DOWN":
+                        System.out.println("right pressed");
+                        model.movePac(MazeItem.direction.SOUTH);
+                        redraw();
+                        break;
+                }
+            }
+        }
     }
 
 }

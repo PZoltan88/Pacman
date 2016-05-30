@@ -6,6 +6,7 @@
 package pacman;
 
 import java.awt.EventQueue;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -13,15 +14,13 @@ import java.awt.EventQueue;
  */
 public class Main {
     public static void main(String[] args) {
-         EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                Maze m=new Maze();
-                m.setCurrentGame(new Game());
-                GUI g = new GUI(m);
-            }
-        });
+        Maze m=new Maze();
+        m.setCurrentGame(new Game());
+         SwingUtilities.invokeLater(new Runnable() {
+         public void run() {
+            GUI g = new GUI(m);
+         }
+      });
     }
     
 }
