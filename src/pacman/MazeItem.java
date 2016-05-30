@@ -144,6 +144,33 @@ public class MazeItem
     }
            
 
+    public boolean hasWallOnSide(direction to)
+    {
+        switch (to)
+            {
+                case NORTH:
+                    return hasNorthWall;
+                    //break;
+
+                case SOUTH:
+                    return hasSouthWall;
+                    
+                    //break;
+
+                case EAST:
+                    return hasEastWall;
+                    
+                    //break;
+
+                case WEST:
+                    return hasWestWall;
+                    
+                    //break;
+                default:
+                    return true;
+            }
+        
+    }
     public boolean HasNorthWall() {
         return hasNorthWall;
     }

@@ -17,8 +17,8 @@ import pacman.MazeItem.direction;
  */
 public class Maze {
 
-    public static final int SIZEX = 2;
-    public static final int SIZEY = 3;
+    public static final int SIZEX = 5;
+    public static final int SIZEY = 6;
     public static final int DOTSCORE = 100;
     public static final int SCOREPERLIFE = 10000;
     private Game currentGame;
@@ -107,7 +107,7 @@ public class Maze {
     }
 
     public void move(MazeItem item, direction to) {
-        if (validPos(destX(item, to), destY(item, to))) {
+        if (validPosToMove(item,to)) {
             itemInteract(item, getField(destX(item, to), destY(item, to)));
         }
     }
@@ -136,6 +136,19 @@ public class Maze {
         }
         return true;
     }
+    
+    public boolean validPosToMove(MazeItem item, direction to)
+    {
+        if (!validPos(destX(item, to), destY(item, to))) {
+            return false;
+        }
+        else if (item.hasWallOnSide(to))
+                {
+                    return false;
+                }
+        
+        return true;
+    }
 
     public void itemInteract(MazeItem src, MazeItem dest) {
         if (dest.getVisibleItemContent() == content.EMPTY) {
@@ -155,10 +168,12 @@ public class Maze {
         }
     }
 
-    public void switchValues(MazeItem a, MazeItem b) {
-        MazeItem tmp = a;
-        a = b;
-        b = tmp;
+    public void switchValues(MazeItem src, MazeItem dest) {
+        dest.getItemContent().add(src.getVisibleItemContent());
+        src.getItemContent().remove(src.getVisibleItemContent());
+        src.getItemContent().add(content.EMPTY);
+        dest.getItemContent().remove(content.EMPTY);
+        
     }
     
     public void removeOneLife() {
