@@ -30,7 +30,11 @@ public class MazeGrid extends JPanel{
     {
         grid= new MazeGridItem[Maze.SIZEY][Maze.SIZEX];
         setLayout(new GridLayout(Maze.SIZEX, Maze.SIZEY));
+        //print();
+        
         draw(model);
+        System.out.println("draw complete");
+        print();
     }
     
     
@@ -52,15 +56,26 @@ public class MazeGrid extends JPanel{
         {
             for (int j=0; j<Maze.SIZEX;j++)
             {
-                int topBorder= model.getField(j, j).HasNorthWall() ? 1 :0 ;
-                int bottomBorder= model.getField(j, j).HasSouthWall() ? 1 :0 ;
-                int rightBorder= model.getField(j, j).HasEastWall() ? 1 :0 ;
-                int leftBorder= model.getField(j, j).HasWestWall() ? 1 :0 ;
-                content payload = model.getField(j, j).getVisibleItemContent();
+                int topBorder= model.getField(j, i).HasNorthWall() ? 1 :0 ;
+                int bottomBorder= model.getField(j, i).HasSouthWall() ? 1 :0 ;
+                int rightBorder= model.getField(j, i).HasEastWall() ? 1 :0 ;
+                int leftBorder= model.getField(j, i).HasWestWall() ? 1 :0 ;
+                content payload = model.getField(j, i).getVisibleItemContent();
                 grid[i][j]= new MazeGridItem(topBorder, bottomBorder, rightBorder, leftBorder, payload);
                 add(grid[i][j]);
             }
         }
     }
     
+    public void print()
+    {
+        for (MazeGridItem[] arr : grid) {
+            for (MazeGridItem i : arr) {
+                
+                    System.out.print(i.toString());
+                
+            }
+            System.out.println();
+        } 
+    }
 }

@@ -102,4 +102,11 @@ public class MazeGridItem extends JPanel {
      g.drawRect(0,0,50,50);
      }
      */
+
+    @Override
+    public String toString() {
+        return "MazeGridItem{" + "payload=" + payload + '}';
+    }
+    
+    
 }

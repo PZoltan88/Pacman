@@ -119,25 +119,7 @@ public class MazeItem
             return false;
         }
 */
-        public  void MoveLeft()
-        {
-            
-        }
-
-        public  void MoveRight()
-        {
-            
-        }
-
-        public void MoveUp()
-        {
-            
-        }
-
-        public void MoveDown()
-        {
-            
-        }
+        
 
 
         public boolean HasAllWalls()
@@ -209,66 +191,15 @@ public class MazeItem
     public void setPosY(int posY) {
         this.posY = posY;
     }
+
+    @Override
+    public String toString() {
+        return "MazeItem{" + "itemContent=" + itemContent + '}';
+    }
     
     
-
-        /*
-        public Rectangle FieldBoundaries()
-        {
-            Point p1 = new Point(0, 0);
-            Point p2 = new Point(0, 0);
-            p1.X = PosX * fieldSize;
-            p1.Y = PosY * fieldSize;
-            p2.X = (PosX + 1) * fieldSize;
-            p2.Y = (PosY + 1) * fieldSize;
-
-            Rectangle rtField = new Rectangle(p1, new Size(fieldSize, fieldSize));
-            return rtField;
-        }
-
-        public Point FieldCenter()
-        {
-            Point p1 = new Point(0, 0);
-            Point p2 = new Point(0, 0);
-            p1.X = PosX * fieldSize;
-            p1.Y = PosY * fieldSize;
-            p2.X = (PosX + 1) * fieldSize;
-            p2.Y = (PosY + 1) * fieldSize;
-
-            Point pCnt= new Point((p1.X+p2.X)/2, (p1.Y+p2.Y)/2);
-            return pCnt;
-        }
-
 
         
-        public Rectangle GetWallRect(direction side)
-        {
-            const int kLeeway = 7;
-            Rectangle r = FieldBoundaries();
-            Rectangle rtResult = r;
-            switch (side)
-            {
-                case direction.NORTH: // top
-                    rtResult.Y -= kLeeway; // put leeway at top
-                    rtResult.Height = kLeeway * 2;
-                    break;
-                case direction.WEST: // left
-                    rtResult.X -= kLeeway; // put leeway at top
-                    rtResult.Width = kLeeway * 2;
-                    break;
-                case direction.SOUTH: // bottorm
-                    rtResult.Y += (r.Height - kLeeway); // put leeway at top
-                    rtResult.Height = kLeeway * 2;
-                    break;
-                case direction.EAST: // right
-                    rtResult.X += (r.Width - kLeeway); // put leeway at top
-                    rtResult.Width = kLeeway * 2;
-                    break;
-            }
-
-            return rtResult;
-        }
-         */
          
     }
 

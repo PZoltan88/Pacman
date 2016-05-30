@@ -17,8 +17,8 @@ import pacman.MazeItem.direction;
  */
 public class Maze {
 
-    public static final int SIZEX = 15;
-    public static final int SIZEY = 20;
+    public static final int SIZEX = 3;
+    public static final int SIZEY = 4;
     public static final int DOTSCORE = 100;
     public static final int SCOREPERLIFE = 10000;
     private Game currentGame;
@@ -55,9 +55,23 @@ public class Maze {
         currentItem = realm[0][0];
         itemStack.clear();
         makeMazeExplorable();
+        print();
         seed();
+        System.out.println("seed complete");
+        print();
     }
 
+    public void print()
+    {
+        for (MazeItem[] arr : realm) {
+            for (MazeItem i : arr) {
+                
+                    System.out.print(i.toString());
+                
+            }
+            System.out.println();
+        } 
+    }
     
     public direction getRandomDirection() {
         
@@ -221,10 +235,12 @@ public class Maze {
 
     public void seedPac() {
         realm[0][0].getItemContent().add(content.PAC);
+        realm[0][0].getItemContent().remove(content.EMPTY);
     }
 
     public void seedGhost() {
         realm[SIZEY / 2][SIZEX / 2].getItemContent().add(content.GHOST);
+        realm[SIZEY / 2][SIZEX / 2].getItemContent().remove(content.EMPTY);
     }
 
     public void seedDots() {
