@@ -13,33 +13,48 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import static javax.swing.JFrame.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  * @author Kornél
  */
-public class GUI extends JPanel implements KeyListener{
+public class GUI extends JPanel implements KeyListener {
 
     //private Maze maze;
     private MazeGrid grid;
     private Maze model;
 
     public GUI(Maze maze) {
-        this.model=maze;
-        grid=new MazeGrid(maze);
+        this.model = maze;
+        grid = new MazeGrid(maze);
         //grid.draw();
-        
+
         //MazeGridItem gridItemTest=new MazeGridItem();
         //gridItemTest.draw();
         //add(gridItemTest);
         //this.addKeyListener(this);
         add(grid);
-           
-        
+
         initFrame();
+
+        final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                
+                model.moveGhost();
+                redraw();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     private void initFrame() {
@@ -54,14 +69,13 @@ public class GUI extends JPanel implements KeyListener{
         topFrame.setVisible(true);
     }
 
-    public void redraw()
-    {
+    public void redraw() {
         grid.removeAll();
         grid.draw(model);
         grid.revalidate();
         grid.repaint();
     }
-    
+
     public Maze getModel() {
         return model;
     }
@@ -69,8 +83,8 @@ public class GUI extends JPanel implements KeyListener{
     public void setModel(Maze model) {
         this.model = model;
     }
-    
-     @Override
+
+    @Override
     public void keyPressed(KeyEvent e) {
 
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -104,7 +118,7 @@ public class GUI extends JPanel implements KeyListener{
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             //System.out.println("Left key Released");
-            
+
         }
         //System.out.println("key released");
     }
@@ -114,11 +128,5 @@ public class GUI extends JPanel implements KeyListener{
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //System.out.println("key typed");
     }
-
-    
-
-    
-
-    
 
 }
