@@ -35,13 +35,7 @@ public class GUI extends JPanel implements KeyListener {
 
     public GUI(Maze maze) {
         this.model = maze;
-        grid = new MazeGrid(maze);
-        //grid.draw();
-
-        //MazeGridItem gridItemTest=new MazeGridItem();
-        //gridItemTest.draw();
-        //add(gridItemTest);
-        //this.addKeyListener(this);
+        grid = new MazeGrid(maze);        
         add(grid);
 
         initFrame();
@@ -113,14 +107,7 @@ public class GUI extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            //System.out.println("Right key Released");
-        }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            //System.out.println("Left key Released");
-
-        }
-        //System.out.println("key released");
+        
     }
 
     @Override
