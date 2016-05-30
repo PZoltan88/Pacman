@@ -109,13 +109,24 @@ public class GUI extends JPanel {
         }
 
         public void redraw() {
+            //grid.invalidate();
             grid.removeAll();
             //grid.revalidate();
             grid.draw(model);
-            grid.revalidate();
+            grid.validate();
             grid.repaint();
         }
-
+       
+        /*
+        public void redraw()
+        {
+           //this.remove(grid);
+           grid = new MazeGrid(model);
+           add(grid);
+            setVisible(true);
+            //return redrawn;
+        }
+*/
         public Maze getModel() {
             return model;
         }
