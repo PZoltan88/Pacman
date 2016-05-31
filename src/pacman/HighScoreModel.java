@@ -25,10 +25,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author 604772006
  */
-public class HighScoreModel {
+public class HighScoreModel implements Serializable {
 
     public static final String SCOREFILENAME = "highscores.bin";
     private ArrayList<Score> hiScores;
+
+    public HighScoreModel() {
+        hiScores = new ArrayList<>();
+    }
 
     public void writeFile() {
         ObjectOutputStream oos = null;
@@ -43,6 +47,7 @@ public class HighScoreModel {
             if (oos != null) {
                 try {
                     oos.close();
+                    fout.close();
                 } catch (IOException ex) {
                     Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -52,7 +57,7 @@ public class HighScoreModel {
 
     public void updateHiScore(String name, int score) {
         hiScores.add(new Score(0, name, score));
-        writeFile();
+        //writeFile();
     }
 
     public void readFile() {
@@ -73,10 +78,11 @@ public class HighScoreModel {
          Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
          }
          */
-        hiScores = new ArrayList<>();
+        //hiScores = new ArrayList<>();
         ObjectInputStream objectinputstream = null;
+        FileInputStream streamIn=null;
         try {
-            FileInputStream streamIn = new FileInputStream(SCOREFILENAME);
+            streamIn = new FileInputStream(SCOREFILENAME);
             objectinputstream = new ObjectInputStream(streamIn);
             ArrayList<Score> readCase = (ArrayList<Score>) objectinputstream.readObject();
             hiScores = readCase;
@@ -87,6 +93,7 @@ public class HighScoreModel {
             if (objectinputstream != null) {
                 try {
                     objectinputstream.close();
+                    streamIn.close();
                 } catch (IOException ex) {
                     Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -97,6 +104,31 @@ public class HighScoreModel {
     public DefaultTableModel getHiScoreData() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (Score s : hiScores) {
+            result += s.toString();
+            //result += "\n";
+        }
+        return result;
+    }
+    private void readObject(
+                ObjectInputStream aInputStream
+        ) throws ClassNotFoundException, IOException {
+            //always perform the default de-serialization first
+            aInputStream.defaultReadObject();
+
+        }
+
+        
+        private void writeObject(
+                ObjectOutputStream aOutputStream
+        ) throws IOException {
+            //perform the default serialization for all non-transient, non-static fields
+            aOutputStream.defaultWriteObject();
+        }
 
     private class Score implements Serializable {
 
@@ -123,5 +155,20 @@ public class HighScoreModel {
             return "Score{" + "rank=" + rank + ", playerName=" + playerName + ", score=" + score + '}';
         }
 
+        private void readObject(
+                ObjectInputStream aInputStream
+        ) throws ClassNotFoundException, IOException {
+            //always perform the default de-serialization first
+            aInputStream.defaultReadObject();
+
+        }
+
+        
+        private void writeObject(
+                ObjectOutputStream aOutputStream
+        ) throws IOException {
+            //perform the default serialization for all non-transient, non-static fields
+            aOutputStream.defaultWriteObject();
+        }
     }
 }

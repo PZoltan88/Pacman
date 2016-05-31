@@ -22,9 +22,21 @@ public class Main {
             GUI g = new GUI(m);
          }
       });
-                
+         //hi score model test
+         /*
+        HighScoreModel m1=new HighScoreModel();
+        m1.updateHiScore("playa", 1000);
+        m1.updateHiScore("playa", 2000);
+        m1.updateHiScore("playa", 3000);
+        m1.writeFile();
+        System.out.println(m1.toString());
+        
+        HighScoreModel m2=new HighScoreModel();
+        m2.readFile();
+        System.out.println(m2.toString());
         //HighScoreModel.updateFile();
         //HighScoreModel.readFile();
+                 */
     }
     
 }
