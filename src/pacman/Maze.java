@@ -204,6 +204,7 @@ public class Maze {
     public void removeOneLife() {
 
         currentGame.setLife(currentGame.getLife() - 1);
+        currentGame.setLosingLife(true);
         if (currentGame.getLife() == 0) {
             currentGame.gameOver();
         }
@@ -328,6 +329,7 @@ public class Maze {
     }
 
     private void reset() {
+        
         initialize();
     }
 

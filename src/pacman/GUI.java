@@ -133,6 +133,7 @@ public class GUI extends JPanel {
 
             dummy = new JLabel("");
             this.model = maze;
+            model.getCurrentGame().initValues();
             setStatusBar();
             grid = new MazeGrid(maze);
             setFocusable(true);
@@ -188,15 +189,20 @@ public class GUI extends JPanel {
         }
 
         public synchronized void redraw() {
+            if (!model.getCurrentGame().isGameActive()) {
+                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+            }
+            if (model.getCurrentGame().isLosingLife()) {
+                JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
+                model.getCurrentGame().setLosingLife(false);
+            }
             grid.removeAll();
             grid.draw(model);
             setStatusBar();
             grid.revalidate();
             grid.repaint();
 
-            if (!model.getCurrentGame().isGameActive()) {
-                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
-            }
+            
         }
 
         public Maze getModel() {
