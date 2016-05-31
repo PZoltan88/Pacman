@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
     public static void main(String[] args) {
+        
         Maze m=new Maze();
         m.setCurrentGame(new Game());
          SwingUtilities.invokeLater(new Runnable() {
@@ -21,6 +22,9 @@ public class Main {
             GUI g = new GUI(m);
          }
       });
+                
+        //HighScoreModel.updateFile();
+        //HighScoreModel.readFile();
     }
     
 }
