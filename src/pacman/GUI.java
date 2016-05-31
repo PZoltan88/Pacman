@@ -7,6 +7,7 @@ package pacman;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -35,10 +36,13 @@ import java.util.logging.Logger;
  * @author Kornél
  */
 public class GUI extends JPanel {
+    JFrame topFrame;
 
     //private Maze maze;
     public GUI(Maze maze) {
-
+        JLabel title=new JLabel("Pacman");
+        //title.setPreferredSize(new Dimension(100,80));
+        title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
         JButton newGame = new JButton("New game");
         JButton highScores = new JButton("Highscores");
         JButton exit = new JButton("Exit");
@@ -61,6 +65,21 @@ public class GUI extends JPanel {
             }
 
         });
+        
+        highScores.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HighScoreGUI hgui=new HighScoreGUI();
+                hgui.setTopFrame(topFrame);
+                removeAll();
+                add(hgui);
+                setVisible(true);
+                revalidate();
+                repaint();
+            }
+            
+        });
 
         exit.addActionListener(new ActionListener() {
 
@@ -74,15 +93,20 @@ public class GUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.PAGE_START;
+        gbc.insets = new Insets(30, 0, 0, 0);
+        add(title, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.CENTER;
         add(newGame, gbc);
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(highScores, gbc);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(exit, gbc);
@@ -92,7 +116,7 @@ public class GUI extends JPanel {
     }
 
     private void initFrame() {
-        JFrame topFrame = new JFrame();
+        topFrame = new JFrame();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
