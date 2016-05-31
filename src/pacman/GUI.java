@@ -5,6 +5,7 @@
  */
 package pacman;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -45,11 +46,15 @@ public class GUI extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (Component component : getComponents()) {
+                    component.setVisible(false);
+                }
                 MazeGUI mgui = new MazeGUI(maze);
-                removeAll();
+                //removeAll();
                 add(mgui);
-                revalidate();
-                repaint();
+                setVisible(true);
+//revalidate();
+                //repaint();
             }
 
         });
@@ -58,7 +63,7 @@ public class GUI extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(1);
+                System.exit(0);
             }
 
         });
@@ -98,6 +103,7 @@ public class GUI extends JPanel {
 
         JLabel levelLbl;
         JLabel level;
+        JLabel dummy;
 
         public MazeGUI(Maze maze) {
             lifesLbl = new JLabel("Lifes");
@@ -109,6 +115,7 @@ public class GUI extends JPanel {
             levelLbl = new JLabel("Level");
             level = new JLabel();
 
+            dummy = new JLabel("");
             this.model = maze;
             setStatusBar();
             grid = new MazeGrid(maze);
@@ -138,9 +145,10 @@ public class GUI extends JPanel {
             add(level, gbc);
             gbc.gridx = 0;
             gbc.gridy = 3;
-            gbc.insets=new Insets(30,0,0,0);
+            gbc.insets = new Insets(30, 0, 0, 0);
             gbc.anchor = GridBagConstraints.CENTER;
             add(grid, gbc);
+            //add (dummy, gbc);
 
             final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
@@ -148,7 +156,7 @@ public class GUI extends JPanel {
                 public void run() {
 
                     model.moveGhost();
-                    //redraw();
+                    redraw();
                 }
             }, 0, 1, TimeUnit.SECONDS);
             setKeyBindings();
@@ -162,7 +170,7 @@ public class GUI extends JPanel {
             level.setText(model.getCurrentGame().getLevel() + "");
         }
 
-        public void redraw() {
+        public synchronized void redraw() {
             /*
              JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
              //grid.invalidate();
@@ -174,17 +182,38 @@ public class GUI extends JPanel {
              topFrame.repaint();
              */
             //removeAll();
+            // Orig content!!
             grid.removeAll();
             //grid.revalidate();
             grid.draw(model);
             setStatusBar();
 
-            grid.validate();
+            grid.revalidate();
             grid.repaint();
-              //validate();
-            //repaint();
-            if (!model.getCurrentGame().isGameActive())
-            {
+            
+            /*
+            for (Component component : getComponents()) {
+                    component.setVisible(false);
+                }
+            grid.draw(model);
+            add(grid);
+            grid.setVisible(true);
+            setVisible(true);
+            */
+            /*
+            GridBagConstraints gbc = new GridBagConstraints();
+            remove(grid);
+            grid= new MazeGrid(model);
+            gbc.gridx = 0;
+            gbc.gridy = 3;
+            gbc.insets = new Insets(30, 0, 0, 0);
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(grid, gbc);
+            //dummy.setText("");
+            validate();
+            repaint();
+            */
+            if (!model.getCurrentGame().isGameActive()) {
                 JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
             }
         }
