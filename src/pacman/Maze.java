@@ -131,7 +131,7 @@ public class Maze {
         }
     }
 
-    public void move(MazeItem item, direction to) {
+    public synchronized void move(MazeItem item, direction to) {
         if (validPosToMove(item,to)) {
             itemInteract(item, getField(destX(item, to), destY(item, to)));
         }

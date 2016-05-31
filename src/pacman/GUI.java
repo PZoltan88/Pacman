@@ -36,11 +36,12 @@ import java.util.logging.Logger;
  * @author Kornél
  */
 public class GUI extends JPanel {
+
     JFrame topFrame;
 
     //private Maze maze;
     public GUI(Maze maze) {
-        JLabel title=new JLabel("Pacman");
+        JLabel title = new JLabel("Pacman");
         //title.setPreferredSize(new Dimension(100,80));
         title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
         JButton newGame = new JButton("New game");
@@ -52,10 +53,10 @@ public class GUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 /*
-                for (Component component : getComponents()) {
-                    component.setVisible(false);
-                }
-                        */
+                 for (Component component : getComponents()) {
+                 component.setVisible(false);
+                 }
+                 */
                 MazeGUI mgui = new MazeGUI(maze);
                 removeAll();
                 add(mgui);
@@ -65,12 +66,12 @@ public class GUI extends JPanel {
             }
 
         });
-        
-        highScores.addActionListener(new ActionListener(){
+
+        highScores.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                HighScoreGUI hgui=new HighScoreGUI();
+                HighScoreGUI hgui = new HighScoreGUI();
                 hgui.setTopFrame(topFrame);
                 removeAll();
                 add(hgui);
@@ -78,7 +79,7 @@ public class GUI extends JPanel {
                 revalidate();
                 repaint();
             }
-            
+
         });
 
         exit.addActionListener(new ActionListener() {
@@ -160,8 +161,8 @@ public class GUI extends JPanel {
             model.getCurrentGame().initValues();
             setStatusBar();
             grid = new MazeGrid(maze);
-            setFocusable(true);
-            requestFocusInWindow();
+            //setFocusable(true);
+            //requestFocusInWindow();
             //addKeyListener(this);
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -188,19 +189,31 @@ public class GUI extends JPanel {
             gbc.gridy = 3;
             gbc.insets = new Insets(30, 0, 0, 0);
             gbc.anchor = GridBagConstraints.CENTER;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
+            gbc.gridwidth = 2;
             add(grid, gbc);
             setPreferredSize(new Dimension(800, 600));
             //add (dummy, gbc);
-
+            redraw();
             final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
 
                     model.moveGhost();
+                    //redraw();
+                }
+            }, 1000, 1000, TimeUnit.MILLISECONDS);
+
+            service.scheduleWithFixedDelay(new Runnable() {
+                @Override
+                public void run() {
+
+                    //model.moveGhost();
                     redraw();
                 }
-            }, 0, 1, TimeUnit.SECONDS);
+            }, 500, 500, TimeUnit.MILLISECONDS);
+
             setKeyBindings();
         }
 
@@ -226,7 +239,6 @@ public class GUI extends JPanel {
             grid.revalidate();
             grid.repaint();
 
-            
         }
 
         public Maze getModel() {

@@ -55,9 +55,12 @@ public class MazeGridItem extends JPanel {
         //setBorder(new LineBorder(Color.BLACK));
         setBorder(BorderFactory.createMatteBorder(topBorder, leftBorder, bottomBorder, rightBorder, Color.black));
         drawCellGraphic();
+        if (payload!=content.EMPTY)        {
         JLabel imgLbl = new JLabel(new ImageIcon(img));
-        imgLbl.setSize(FIELDSIZE / 2, FIELDSIZE / 2);
+//        JLabel imgLbl=new JLabel("  ");
+        //imgLbl.setSize(FIELDSIZE / 2, FIELDSIZE / 2);
         add(imgLbl);
+        }
         setBackground(Color.CYAN);
         setVisible(true);
     }
@@ -67,15 +70,19 @@ public class MazeGridItem extends JPanel {
         switch (payload) {
             case DOT:
                 loadImage("dotImg.gif");
+//                setBackground(Color.RED);
                 break;
             case PAC:
                 loadImage("pacImg.gif");
+//                setBackground(Color.YELLOW);
                 break;
             case GHOST:
                 loadImage("ghostImg.gif");
+//                setBackground(Color.BLACK);
                 break;
             case EMPTY:
-                loadImage("emptyImg.gif");
+                //loadImage("emptyImg.gif");
+//                setBackground(Color.CYAN);
                 break;
             default:
                 break;
@@ -87,6 +94,7 @@ public class MazeGridItem extends JPanel {
 
         try {
             img = ImageIO.read(new File(imgName));
+            
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
