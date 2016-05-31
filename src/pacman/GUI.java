@@ -201,6 +201,7 @@ public class GUI extends JPanel {
                 public void run() {
 
                     model.moveGhost();
+                    System.out.println("move ghost");
                     //redraw();
                 }
             }, 1000, 1000, TimeUnit.MILLISECONDS);
@@ -236,6 +237,8 @@ public class GUI extends JPanel {
             grid.removeAll();
             grid.draw(model);
             setStatusBar();
+//            grid.setVisible(false);
+//            grid.setVisible(true);
             grid.revalidate();
             grid.repaint();
 

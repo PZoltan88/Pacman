@@ -120,8 +120,21 @@ public class Maze {
     public void movePac(direction to) {
         move(getPac(), to);
     }
-
+    
+    public MazeItem getGhost()
+    {
+        MazeItem result = new MazeItem();
+        for (MazeItem[] arr : realm) {
+            for (MazeItem i : arr) {
+                if (i.getItemContent().contains(content.GHOST)) {
+                    result = i;
+                }
+            }
+        }
+        return result;
+    }
     public void moveGhost() {
+        /*
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
                 if (i.getItemContent().contains(content.GHOST)) {
@@ -129,6 +142,8 @@ public class Maze {
                 }
             }
         }
+                */
+        move(getGhost(), getRandomDirection());
     }
 
     public synchronized void move(MazeItem item, direction to) {
@@ -333,7 +348,7 @@ public class Maze {
         initialize();
     }
 
-    public Game getCurrentGame() {
+    public synchronized Game getCurrentGame() {
         return currentGame;
     }
 
