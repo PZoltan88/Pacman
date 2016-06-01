@@ -124,8 +124,6 @@ public class GUI extends JPanel {
         topFrame.add(this);
         topFrame.setTitle("Chlebovics Kornél(VYSQGW) & Papp Zoltán(N3GM04)");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //topFrame.setSize(800, 600);
-        //topFrame.setLocationRelativeTo(null);
         topFrame.pack();
         topFrame.setVisible(true);
     }

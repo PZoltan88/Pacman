@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
 import java.awt.Dimension;
@@ -14,10 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- *
- * @author 604772006
- */
 public class HighScoreGUI extends JPanel {
 
     private JLabel title;
@@ -27,9 +18,11 @@ public class HighScoreGUI extends JPanel {
 
     public HighScoreGUI() {
         title = new JLabel("Highscores");
-        //title.setPreferredSize(new Dimension(100,80));
-        title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
-        back = new JButton("Back to Main menu");
+        title.setFont(new Font("Courier New", 1, 24));
+        
+        back = new JButton("Back to Main Menu");
+        back.setFont(new Font("Courier New", 1, 14));
+        
         back.addActionListener(new ActionListener() {
 
             @Override
@@ -51,6 +44,7 @@ public class HighScoreGUI extends JPanel {
         loadScoreData();
         JScrollPane tableHolder=new JScrollPane(scores);
         scores.setFillsViewportHeight(true);
+        tableHolder.setMinimumSize(new Dimension(250, 100));
         
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -73,6 +67,7 @@ public class HighScoreGUI extends JPanel {
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(back, gbc);
+        setPreferredSize(new Dimension(300, 300));
     }
 
     private void loadScoreData() {
