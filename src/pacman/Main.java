@@ -7,6 +7,8 @@ package pacman;
 
 import java.awt.EventQueue;
 import javax.swing.SwingUtilities;
+import sun.audio.*;
+import java.io.*;
 
 /**
  *
@@ -14,6 +16,8 @@ import javax.swing.SwingUtilities;
  */
 public class Main {
     public static void main(String[] args) {
+        
+      //  music();
         
         Maze m=new Maze();
         m.setCurrentGame(new Game());
@@ -48,4 +52,32 @@ public class Main {
                 */ 
     }
     
+  /* public static void music() 
+    {       
+        AudioPlayer MGP = AudioPlayer.player;
+        AudioStream BGM;
+        AudioData MD;
+
+        ContinuousAudioDataStream loop = null;
+
+        try
+        {
+            InputStream test = new FileInputStream("C:\\Music.wav");
+            BGM = new AudioStream(test);
+            AudioPlayer.player.start(BGM);
+            //MD = BGM.getData();
+            //loop = new ContinuousAudioDataStream(MD);
+
+        }
+        catch(FileNotFoundException e){
+            System.out.print(e.toString());
+        }
+        catch(IOException error)
+        {
+            System.out.print(error.toString());
+        }
+        MGP.start(loop);
+    }
+
+ */   
 }
