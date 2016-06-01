@@ -25,7 +25,9 @@ public class GameOverGUI extends JPanel {
         this.topFrame=frame;
         JLabel title = new JLabel("Game over");
         JLabel nameLbl = new JLabel("Enter player name:");
-        JTextField name = new JTextField("test",20);
+        JLabel scoreLbl=new JLabel("Your score:");
+        JLabel playerScore = new JLabel(score+"");
+        JTextField name = new JTextField("");
         JButton okBtn = new JButton("OK");
         setLayout(new GridBagLayout());
         okBtn.addActionListener(new ActionListener() {
@@ -60,16 +62,30 @@ public class GameOverGUI extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.CENTER;
-//        gbc.insets = new Insets(30, 0, 0, 0);
-        add(nameLbl, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 30, 0, 0);
-        add(name, gbc);
+        gbc.insets = new Insets(30, 0, 0, 0);
+        add(scoreLbl,gbc );
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(30, 0, 0, 0);
+        add(playerScore, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.CENTER;
+//        gbc.insets = new Insets(30, 0, 0, 0);
+        add(nameLbl, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.weightx = 0.5;
+        gbc.anchor = GridBagConstraints.CENTER;
+//        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(name, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.CENTER;
+        
+
         gbc.insets = new Insets(30, 0, 0, 0);
         add(okBtn, gbc);
 

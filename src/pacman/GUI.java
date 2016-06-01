@@ -143,6 +143,7 @@ public class GUI extends JPanel {
         JLabel levelLbl;
         JLabel level;
         JLabel dummy;
+        final ScheduledExecutorService service;
 
         public MazeGUI(Maze maze) {
             lifesLbl = new JLabel("Lifes");
@@ -193,7 +194,7 @@ public class GUI extends JPanel {
             setPreferredSize(new Dimension(800, 600));
             //add (dummy, gbc);
             redraw();
-            final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+            service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
@@ -214,6 +215,7 @@ public class GUI extends JPanel {
             }, 500, 500, TimeUnit.MILLISECONDS);
 
             setKeyBindings();
+            
         }
 
         public void setStatusBar() {
@@ -227,6 +229,7 @@ public class GUI extends JPanel {
         public synchronized void redraw() {
             if (!model.getCurrentGame().isGameActive()) {
 //                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+                service.shutdown();
                 GameOverGUI gOver=new GameOverGUI(model.getCurrentGame().getScore() + model.getSessionScore(),topFrame);
                 removeAll();
                 add(gOver);
@@ -234,6 +237,8 @@ public class GUI extends JPanel {
                 revalidate();
                 repaint();
             }
+            else
+            {
             if (model.getCurrentGame().isLosingLife()) {
                 JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
                 model.getCurrentGame().setLosingLife(false);
@@ -245,6 +250,7 @@ public class GUI extends JPanel {
 //            grid.setVisible(true);
             grid.revalidate();
             grid.repaint();
+            }
 
         }
 

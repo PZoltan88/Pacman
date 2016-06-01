@@ -85,6 +85,10 @@ public class Game {
     public String toString() {
         return "Game{" + "level=" + level + ", difficulty=" + difficulty + ", score=" + score + ", life=" + life + ", gameActive=" + gameActive + ", losingLife=" + losingLife + '}';
     }
+
+    public void setGameActive(boolean gameActive) {
+        this.gameActive = gameActive;
+    }
     
     
 
