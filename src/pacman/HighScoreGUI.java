@@ -80,12 +80,13 @@ public class HighScoreGUI extends JPanel {
 //        Object[][] rowData= {{"","",""},{"","",""}};
         HighScoreModel hiscoreData=new HighScoreModel();
 //        test
-        hiscoreData.readFile();
-        hiscoreData.updateHiScore("playa", 1000);
-        hiscoreData.updateHiScore("playa", 2000);
-        hiscoreData.updateHiScore("playa", 3000);
+//        hiscoreData.readFile();
+//        hiscoreData.updateHiScore("playa", 1000);
+//        hiscoreData.updateHiScore("playa", 2000);
+//        hiscoreData.updateHiScore("playa", 3000);
 //        hiscoreData.updateHiScore("playa", 1000);
 //        hiscoreData.writeFile();
+        hiscoreData.readFile();
         scores= new JTable();
         scores.setModel(hiscoreData.getHiScoreData());
     }

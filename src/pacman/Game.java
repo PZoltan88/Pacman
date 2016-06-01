@@ -26,7 +26,7 @@ public class Game {
         level=1;
         difficulty=1;
         score=0;
-        life=3;
+        life=1;
         gameActive=true;
         losingLife=false;
     }

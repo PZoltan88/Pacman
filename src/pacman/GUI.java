@@ -228,7 +228,13 @@ public class GUI extends JPanel {
 
         public synchronized void redraw() {
             if (!model.getCurrentGame().isGameActive()) {
-                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+//                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+                GameOverGUI gOver=new GameOverGUI(model.getCurrentGame().getScore() + model.getSessionScore(),topFrame);
+                removeAll();
+                add(gOver);
+                setVisible(true);
+                revalidate();
+                repaint();
             }
             if (model.getCurrentGame().isLosingLife()) {
                 JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);

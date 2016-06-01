@@ -43,7 +43,7 @@ public class HighScoreModel implements Serializable {
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(hiScores);
             oos.close();
-            //fout.close();
+            fout.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -62,8 +62,9 @@ public class HighScoreModel implements Serializable {
     }
 
     public void updateHiScore(String name, int score) {
+        readFile();
         hiScores.add(new Score(name, score));
-        //writeFile();
+        writeFile();
     }
 
     public void readFile() {
@@ -78,16 +79,25 @@ public class HighScoreModel implements Serializable {
                 Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        long size = 0;
         try {
-            FileInputStream streamIn = new FileInputStream(SCOREFILENAME);
-            ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
-            hiScores = (ArrayList<Score>) objectinputstream.readObject();
-            objectinputstream.close();
-            //streamIn.close();
+            size = Files.size(Paths.get(SCOREFILENAME));
+        } catch (IOException ex) {
+            Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (size > 0) {
+
+            try {
+                FileInputStream streamIn = new FileInputStream(SCOREFILENAME);
+                ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
+                hiScores = (ArrayList<Score>) objectinputstream.readObject();
+                objectinputstream.close();
+                streamIn.close();
             //hiScores = readCase;
-            //System.out.println(recordList.get(i));
-        } catch (Exception e) {
-            e.printStackTrace();
+                //System.out.println(recordList.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         /*
          finally {
@@ -124,7 +134,7 @@ public class HighScoreModel implements Serializable {
         });
 
         for (int i = 0; i < hiScores.size(); i++) {
-            Object[] obj = {i+1, hiScores.get(i).getPlayerName(), hiScores.get(i).getScore()};
+            Object[] obj = {i + 1, hiScores.get(i).getPlayerName(), hiScores.get(i).getScore()};
             eredmeny.addRow(obj);
 
         }
@@ -172,10 +182,6 @@ public class HighScoreModel implements Serializable {
         public String toString() {
             return "Score{" + "playerName=" + playerName + ", score=" + score + '}';
         }
-
-        
-
-       
 
         private void readObject(
                 ObjectInputStream aInputStream
