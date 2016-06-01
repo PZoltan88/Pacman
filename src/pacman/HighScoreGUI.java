@@ -76,9 +76,15 @@ public class HighScoreGUI extends JPanel {
     }
 
     private void loadScoreData() {
-        String[] columnNames = {"Rank", "Player name", "Score"};
-        Object[][] rowData= {{"","",""},{"","",""}};
-        scores= new JTable(rowData, columnNames);
+        //String[] columnNames = {"Rank", "Player name", "Score"};
+//        Object[][] rowData= {{"","",""},{"","",""}};
+        HighScoreModel hiscoreData=new HighScoreModel();
+//        test
+        hiscoreData.readFile();
+        hiscoreData.updateHiScore("playa", 1000);
+        hiscoreData.writeFile();
+        scores= new JTable();
+        scores.setModel(hiscoreData.getHiScoreData());
     }
 
     public JFrame getTopFrame() {

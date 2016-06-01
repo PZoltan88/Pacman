@@ -30,11 +30,14 @@ public class HighScoreModel implements Serializable {
     public static final String SCOREFILENAME = "highscores.bin";
     private ArrayList<Score> hiScores;
 
+    
     public HighScoreModel() {
         hiScores = new ArrayList<>();
     }
+    
 
     public void writeFile() {
+//        readFile();
         ObjectOutputStream oos = null;
         FileOutputStream fout = null;
         try {
@@ -102,7 +105,17 @@ public class HighScoreModel implements Serializable {
     }
 
     public DefaultTableModel getHiScoreData() {
-        return null;
+        String[] columnName = {"Rank", "Player name", "Score"};
+        DefaultTableModel eredmeny = new DefaultTableModel(columnName,0);
+        readFile();
+            
+        for(int i=0; i<hiScores.size(); i++)
+        {
+                Object[] obj={hiScores.get(i).getRank(), hiScores.get(i).getPlayerName(), hiScores.get(i).getScore()}; 
+                eredmeny.addRow(obj);
+            
+        }
+        return eredmeny;
     }
 
     @Override
@@ -170,5 +183,14 @@ public class HighScoreModel implements Serializable {
             //perform the default serialization for all non-transient, non-static fields
             aOutputStream.defaultWriteObject();
         }
+
+        public String getPlayerName() {
+            return playerName;
+        }
+
+        public int getScore() {
+            return score;
+        }
+        
     }
 }
