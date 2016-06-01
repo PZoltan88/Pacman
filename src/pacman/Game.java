@@ -26,7 +26,7 @@ public class Game {
         level=1;
         difficulty=1;
         score=0;
-        life=3;
+        life=1;
         gameActive=true;
         losingLife=false;
     }
@@ -84,6 +84,10 @@ public class Game {
     @Override
     public String toString() {
         return "Game{" + "level=" + level + ", difficulty=" + difficulty + ", score=" + score + ", life=" + life + ", gameActive=" + gameActive + ", losingLife=" + losingLife + '}';
+    }
+
+    public void setGameActive(boolean gameActive) {
+        this.gameActive = gameActive;
     }
     
     
