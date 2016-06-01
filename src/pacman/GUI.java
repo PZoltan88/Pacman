@@ -145,13 +145,20 @@ public class GUI extends JPanel {
 
         public MazeGUI(Maze maze) {
             lifesLbl = new JLabel("Lifes");
+            lifesLbl.setFont(new Font("Courier New", Font.BOLD, 14));
+            
             lifes = new JLabel();
+            lifes.setFont(new Font("Courier New", Font.BOLD, 14));
 
             scoreLbl = new JLabel("Score");
+            scoreLbl.setFont(new Font("Courier New", Font.BOLD, 14));
             score = new JLabel();
+            score.setFont(new Font("Courier New", Font.BOLD, 14));
 
             levelLbl = new JLabel("Level");
+            levelLbl.setFont(new Font("Courier New", Font.BOLD, 14));
             level = new JLabel();
+            level.setFont(new Font("Courier New", Font.BOLD, 14));
 
             dummy = new JLabel("");
             this.model = maze;

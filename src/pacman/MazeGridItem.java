@@ -61,7 +61,7 @@ public class MazeGridItem extends JPanel {
         //imgLbl.setSize(FIELDSIZE / 2, FIELDSIZE / 2);
         add(imgLbl);
         }
-        setBackground(Color.decode("#40E0D0"));
+        setBackground(Color.decode("#1199ff"));
         setVisible(true);
     }
 
