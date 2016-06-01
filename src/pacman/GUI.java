@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,11 +26,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import static javax.swing.JFrame.*;
 
-/**
- *
- * @author Kornél
- */
 public class GUI extends JPanel {
 
     JFrame topFrame;
@@ -42,12 +37,20 @@ public class GUI extends JPanel {
     //private Maze maze;
     public GUI(Maze maze) {
         JLabel title = new JLabel("Pacman");
-        //title.setPreferredSize(new Dimension(100,80));
-        title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
-        JButton newGame = new JButton("New game");
+        title.setFont(new Font("Courier New", 1, 24));
+        
+        JButton newGame = new JButton("New Game");
+        newGame.setFont(new Font("Courier New", 1, 14)); 
+                
         JButton highScores = new JButton("Highscores");
+        highScores.setFont(new Font("Courier New", 1, 14));
+        
         JButton exit = new JButton("Exit");
+        exit.setFont(new Font("Courier New", 1, 14));
+        
         setLayout(new GridBagLayout());
+        setBackground(Color.decode("#40E0D0"));
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
         newGame.addActionListener(new ActionListener() {
 
             @Override
@@ -90,7 +93,7 @@ public class GUI extends JPanel {
             }
 
         });
-
+       
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -118,13 +121,8 @@ public class GUI extends JPanel {
 
     private void initFrame() {
         topFrame = new JFrame();
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
         topFrame.add(this);
-        topFrame.setTitle("Pacman");
+        topFrame.setTitle("Chlebovics Kornél(VYSQGW) & Papp Zoltán(N3GM04)");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //topFrame.setSize(800, 600);
         //topFrame.setLocationRelativeTo(null);
