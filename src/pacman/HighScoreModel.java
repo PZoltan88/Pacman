@@ -87,8 +87,8 @@ public class HighScoreModel implements Serializable {
         try {
             streamIn = new FileInputStream(SCOREFILENAME);
             objectinputstream = new ObjectInputStream(streamIn);
-            ArrayList<Score> readCase = (ArrayList<Score>) objectinputstream.readObject();
-            hiScores = readCase;
+            hiScores = (ArrayList) objectinputstream.readObject();
+            //hiScores = readCase;
             //System.out.println(recordList.get(i));
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class HighScoreModel implements Serializable {
     public DefaultTableModel getHiScoreData() {
         String[] columnName = {"Rank", "Player name", "Score"};
         DefaultTableModel eredmeny = new DefaultTableModel(columnName,0);
-        readFile();
+        //readFile();
             
         for(int i=0; i<hiScores.size(); i++)
         {
