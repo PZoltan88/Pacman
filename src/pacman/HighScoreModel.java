@@ -30,90 +30,113 @@ public class HighScoreModel implements Serializable {
     public static final String SCOREFILENAME = "highscores.bin";
     private ArrayList<Score> hiScores;
 
-    
     public HighScoreModel() {
         hiScores = new ArrayList<>();
     }
-    
 
     public void writeFile() {
 //        readFile();
-        ObjectOutputStream oos = null;
-        FileOutputStream fout = null;
+//        ObjectOutputStream oos = null;
+//        FileOutputStream fout = null;
         try {
-            fout = new FileOutputStream(SCOREFILENAME, true);
-            oos = new ObjectOutputStream(fout);
+            FileOutputStream fout = new FileOutputStream(SCOREFILENAME);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(hiScores);
+            oos.close();
+            fout.close();
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            if (oos != null) {
-                try {
-                    oos.close();
-                    fout.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
-    }
-
-    public void updateHiScore(String name, int score) {
-        hiScores.add(new Score(0, name, score));
-        //writeFile();
-    }
-
-    public void readFile() {
         /*
-         Charset utf8 = StandardCharsets.UTF_8;
-         hiScores = new ArrayList<>();
+         finally {
+         if (oos != null) {
          try {
-         if(Files.notExists(Paths.get(SCOREFILENAME), LinkOption.NOFOLLOW_LINKS))
-         {
-         Files.createFile(Paths.get(SCOREFILENAME));
-         }
-         for ( String s :Files.readAllLines(Paths.get(SCOREFILENAME), utf8))  
-         {
-         System.out.println(s);
-         }
-        
+         oos.close();
+         fout.close();
          } catch (IOException ex) {
          Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
          }
+         }
+         }
          */
+    }
+
+    public void updateHiScore(String name, int score) {
+        readFile();
+        hiScores.add(new Score(name, score));
+        writeFile();
+    }
+
+    public void readFile() {
+
         //hiScores = new ArrayList<>();
-        ObjectInputStream objectinputstream = null;
-        FileInputStream streamIn=null;
-        try {
-            streamIn = new FileInputStream(SCOREFILENAME);
-            objectinputstream = new ObjectInputStream(streamIn);
-            hiScores = (ArrayList) objectinputstream.readObject();
-            //hiScores = readCase;
-            //System.out.println(recordList.get(i));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (objectinputstream != null) {
-                try {
-                    objectinputstream.close();
-                    streamIn.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//        ObjectInputStream objectinputstream = null;
+//        FileInputStream streamIn = null;
+        if (Files.notExists(Paths.get(SCOREFILENAME), LinkOption.NOFOLLOW_LINKS)) {
+            try {
+                Files.createFile(Paths.get(SCOREFILENAME));
+            } catch (IOException ex) {
+                Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        long size = 0;
+        try {
+            size = Files.size(Paths.get(SCOREFILENAME));
+        } catch (IOException ex) {
+            Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (size > 0) {
+
+            try {
+                FileInputStream streamIn = new FileInputStream(SCOREFILENAME);
+                ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
+                hiScores = (ArrayList<Score>) objectinputstream.readObject();
+                objectinputstream.close();
+                streamIn.close();
+            //hiScores = readCase;
+                //System.out.println(recordList.get(i));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        /*
+         finally {
+         if (objectinputstream != null) {
+         try {
+         objectinputstream.close();
+         streamIn.close();
+         } catch (IOException ex) {
+         Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         }
+         }
+         */
     }
 
     public DefaultTableModel getHiScoreData() {
         String[] columnName = {"Rank", "Player name", "Score"};
-        DefaultTableModel eredmeny = new DefaultTableModel(columnName,0);
+        DefaultTableModel eredmeny = new DefaultTableModel(columnName, 0);
         //readFile();
-            
-        for(int i=0; i<hiScores.size(); i++)
-        {
-                Object[] obj={hiScores.get(i).getRank(), hiScores.get(i).getPlayerName(), hiScores.get(i).getScore()}; 
-                eredmeny.addRow(obj);
-            
+        Collections.sort(hiScores, new Comparator<Score>() {
+
+            @Override
+            public int compare(Score o1, Score o2) {
+                if (o1.getScore() < o2.getScore()) {
+                    return 1;
+                }
+                if (o1.getScore() > o2.getScore()) {
+                    return -1;
+                }
+                return 0;
+
+            }
+
+        });
+
+        for (int i = 0; i < hiScores.size(); i++) {
+            Object[] obj = {i + 1, hiScores.get(i).getPlayerName(), hiScores.get(i).getScore()};
+            eredmeny.addRow(obj);
+
         }
         return eredmeny;
     }
@@ -127,45 +150,37 @@ public class HighScoreModel implements Serializable {
         }
         return result;
     }
+
     private void readObject(
-                ObjectInputStream aInputStream
-        ) throws ClassNotFoundException, IOException {
-            //always perform the default de-serialization first
-            aInputStream.defaultReadObject();
+            ObjectInputStream aInputStream
+    ) throws ClassNotFoundException, IOException {
+        //always perform the default de-serialization first
+        aInputStream.defaultReadObject();
 
-        }
+    }
 
-        
-        private void writeObject(
-                ObjectOutputStream aOutputStream
-        ) throws IOException {
-            //perform the default serialization for all non-transient, non-static fields
-            aOutputStream.defaultWriteObject();
-        }
+    private void writeObject(
+            ObjectOutputStream aOutputStream
+    ) throws IOException {
+        //perform the default serialization for all non-transient, non-static fields
+        aOutputStream.defaultWriteObject();
+    }
 
     private class Score implements Serializable {
 
-        private int rank;
+        //private int rank;
         private String playerName;
         private int score;
 
-        public Score(int rank, String playerName, int score) {
-            this.rank = rank;
+        public Score(String playerName, int score) {
+//            this.rank = rank;
             this.playerName = playerName;
             this.score = score;
         }
 
-        public int getRank() {
-            return rank;
-        }
-
-        public void setRank(int rank) {
-            this.rank = rank;
-        }
-
         @Override
         public String toString() {
-            return "Score{" + "rank=" + rank + ", playerName=" + playerName + ", score=" + score + '}';
+            return "Score{" + "playerName=" + playerName + ", score=" + score + '}';
         }
 
         private void readObject(
@@ -176,7 +191,6 @@ public class HighScoreModel implements Serializable {
 
         }
 
-        
         private void writeObject(
                 ObjectOutputStream aOutputStream
         ) throws IOException {
@@ -191,6 +205,6 @@ public class HighScoreModel implements Serializable {
         public int getScore() {
             return score;
         }
-        
+
     }
 }

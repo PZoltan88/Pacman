@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -30,11 +26,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import static javax.swing.JFrame.*;
 
-/**
- *
- * @author Kornél
- */
 public class GUI extends JPanel {
 
     JFrame topFrame;
@@ -42,12 +37,20 @@ public class GUI extends JPanel {
     //private Maze maze;
     public GUI(Maze maze) {
         JLabel title = new JLabel("Pacman");
-        //title.setPreferredSize(new Dimension(100,80));
-        title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
-        JButton newGame = new JButton("New game");
+        title.setFont(new Font("Courier New", 1, 24));
+
+        JButton newGame = new JButton("New Game");
+        newGame.setFont(new Font("Courier New", 1, 14));
+
         JButton highScores = new JButton("Highscores");
+        highScores.setFont(new Font("Courier New", 1, 14));
+
         JButton exit = new JButton("Exit");
+        exit.setFont(new Font("Courier New", 1, 14));
+
         setLayout(new GridBagLayout());
+        setBackground(Color.decode("#40E0D0"));
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.black));
         newGame.addActionListener(new ActionListener() {
 
             @Override
@@ -118,16 +121,9 @@ public class GUI extends JPanel {
 
     private void initFrame() {
         topFrame = new JFrame();
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
         topFrame.add(this);
-        topFrame.setTitle("Pacman");
+        topFrame.setTitle("Chlebovics Kornél(VYSQGW) & Papp Zoltán(N3GM04)");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //topFrame.setSize(800, 600);
-        //topFrame.setLocationRelativeTo(null);
         topFrame.pack();
         topFrame.setVisible(true);
     }
@@ -145,16 +141,24 @@ public class GUI extends JPanel {
         JLabel levelLbl;
         JLabel level;
         JLabel dummy;
+        final ScheduledExecutorService service;
 
         public MazeGUI(Maze maze) {
             lifesLbl = new JLabel("Lifes");
+            lifesLbl.setFont(new Font("Courier New", Font.BOLD, 14));
+            
             lifes = new JLabel();
+            lifes.setFont(new Font("Courier New", Font.BOLD, 14));
 
             scoreLbl = new JLabel("Score");
+            scoreLbl.setFont(new Font("Courier New", Font.BOLD, 14));
             score = new JLabel();
+            score.setFont(new Font("Courier New", Font.BOLD, 14));
 
             levelLbl = new JLabel("Level");
+            levelLbl.setFont(new Font("Courier New", Font.BOLD, 14));
             level = new JLabel();
+            level.setFont(new Font("Courier New", Font.BOLD, 14));
 
             dummy = new JLabel("");
             this.model = maze;
@@ -195,7 +199,7 @@ public class GUI extends JPanel {
             setPreferredSize(new Dimension(800, 600));
             //add (dummy, gbc);
             redraw();
-            final ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+            service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
@@ -216,6 +220,7 @@ public class GUI extends JPanel {
             }, 500, 500, TimeUnit.MILLISECONDS);
 
             setKeyBindings();
+
         }
 
         public void setStatusBar() {
@@ -228,19 +233,50 @@ public class GUI extends JPanel {
 
         public synchronized void redraw() {
             if (!model.getCurrentGame().isGameActive()) {
-                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
-            }
-            if (model.getCurrentGame().isLosingLife()) {
-                JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
-                model.getCurrentGame().setLosingLife(false);
-            }
-            grid.removeAll();
-            grid.draw(model);
-            setStatusBar();
+//                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+                //Újrarajzolás időzítés lekapcsolása
+                service.shutdown();
+                //Kurzorbillentyűk eseményeinek leállítása
+                Action doNothing = new AbstractAction() {
+                    public void actionPerformed(ActionEvent e) {
+                        //do nothing
+                    }
+                };
+                String vkLeft = "VK_LEFT";
+                String vkRight = "VK_RIGHT";
+                String vkUp = "VK_UP";
+                String vkDown = "VK_DOWN";
+                InputMap inputMap = this.getInputMap();
+                ActionMap actionMap = this.getActionMap();
+                inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), vkLeft);
+                inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), vkRight);
+                inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), vkUp);
+                inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), vkDown);
+
+                actionMap.put(vkLeft, doNothing);
+                actionMap.put(vkRight, doNothing);
+                actionMap.put(vkUp, doNothing);
+                actionMap.put(vkDown, doNothing);
+                
+                GameOverGUI gOver = new GameOverGUI(model.getCurrentGame().getScore() + model.getSessionScore(), topFrame);
+                removeAll();
+                add(gOver);
+                setVisible(true);
+                revalidate();
+                repaint();
+            } else {
+                if (model.getCurrentGame().isLosingLife()) {
+                    JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
+                    model.getCurrentGame().setLosingLife(false);
+                }
+                grid.removeAll();
+                grid.draw(model);
+                setStatusBar();
 //            grid.setVisible(false);
 //            grid.setVisible(true);
-            grid.revalidate();
-            grid.repaint();
+                grid.revalidate();
+                grid.repaint();
+            }
 
         }
 

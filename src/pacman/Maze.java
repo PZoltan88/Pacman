@@ -52,7 +52,7 @@ public class Maze {
             }
 
         }
-        
+        sessionScore=0;
         touchedItems = 1;
         currentItem = realm[0][0];
         itemStack.clear();
@@ -221,6 +221,7 @@ public class Maze {
         currentGame.setLife(currentGame.getLife() - 1);
         currentGame.setLosingLife(true);
         if (currentGame.getLife() == 0) {
+            currentGame.setScore(currentGame.getScore()+sessionScore);
             currentGame.gameOver();
         }
         System.out.println("life lost "+currentGame.toString());
@@ -334,7 +335,7 @@ public class Maze {
 
     private void pacDie(MazeItem a, MazeItem b) {
         removeOneLife();
-        sessionScore=0;
+        
         reset();
     }
 
