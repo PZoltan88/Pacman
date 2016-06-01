@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,10 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.JPanel;
 
-/**
- *
- * @author 604772006
- */
 public class GameOverGUI extends JPanel {
 
     private JFrame topFrame;
@@ -24,11 +16,23 @@ public class GameOverGUI extends JPanel {
     public GameOverGUI(int score, JFrame frame) {
         this.topFrame=frame;
         JLabel title = new JLabel("Game over");
+        title.setFont(new Font("Courier New", 1, 14));
+        
         JLabel nameLbl = new JLabel("Enter player name:");
+        nameLbl.setFont(new Font("Courier New", 1, 14));
+        
         JLabel scoreLbl=new JLabel("Your score:");
+        scoreLbl.setFont(new Font("Courier New", 1, 14));
+        
         JLabel playerScore = new JLabel(score+"");
+        playerScore.setFont(new Font("Courier New", 1, 14));
+        
         JTextField name = new JTextField("");
+        name.setFont(new Font("Courier New", 1, 14));
+        
         JButton okBtn = new JButton("OK");
+        okBtn.setFont(new Font("Courier New", 1, 14));
+        
         setLayout(new GridBagLayout());
         okBtn.addActionListener(new ActionListener() {
 
