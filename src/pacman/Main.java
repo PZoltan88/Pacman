@@ -22,21 +22,30 @@ public class Main {
             GUI g = new GUI(m);
          }
       });
-         //hi score model test
-         /*
-        HighScoreModel m1=new HighScoreModel();
-        m1.updateHiScore("playa", 1000);
-        m1.updateHiScore("playa", 2000);
-        m1.updateHiScore("playa", 3000);
-        m1.writeFile();
-        System.out.println(m1.toString());
         
-        HighScoreModel m2=new HighScoreModel();
-        m2.readFile();
-        System.out.println(m2.toString());
+        /*
+         //hi score model test
+         HighScoreModel hiscoreData=new HighScoreModel();
+//        test
+        hiscoreData.readFile();
+        hiscoreData.updateHiScore("playa", 1000);
+        hiscoreData.updateHiScore("playa", 2000);
+        hiscoreData.updateHiScore("playa", 3000);
+        hiscoreData.updateHiScore("playa", 1000);
+        hiscoreData.writeFile();
+        System.out.println("from mem");
+        System.out.println(hiscoreData.toString());
+        hiscoreData.readFile();
+        System.out.println("from file");
+        System.out.println(hiscoreData.toString());
+        
+//        HighScoreModel m2=new HighScoreModel();
+//        m2.readFile();
+//        m2.updateHiScore("playa", 1500);
+//        System.out.println(m2.toString());
         //HighScoreModel.updateFile();
         //HighScoreModel.readFile();
-                 */
+                */ 
     }
     
 }

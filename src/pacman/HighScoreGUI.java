@@ -82,7 +82,10 @@ public class HighScoreGUI extends JPanel {
 //        test
         hiscoreData.readFile();
         hiscoreData.updateHiScore("playa", 1000);
-        hiscoreData.writeFile();
+        hiscoreData.updateHiScore("playa", 2000);
+        hiscoreData.updateHiScore("playa", 3000);
+//        hiscoreData.updateHiScore("playa", 1000);
+//        hiscoreData.writeFile();
         scores= new JTable();
         scores.setModel(hiscoreData.getHiScoreData());
     }
