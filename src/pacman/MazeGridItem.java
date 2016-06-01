@@ -6,6 +6,7 @@
 package pacman;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -52,6 +53,9 @@ public class MazeGridItem extends JPanel {
     public void draw() {
         //repaint();
         setSize(FIELDSIZE, FIELDSIZE);
+        setMinimumSize(new Dimension(FIELDSIZE, FIELDSIZE));
+        setPreferredSize(new Dimension(FIELDSIZE, FIELDSIZE));
+        setMaximumSize(new Dimension(FIELDSIZE, FIELDSIZE));
         //setBorder(new LineBorder(Color.BLACK));
         setBorder(BorderFactory.createMatteBorder(topBorder, leftBorder, bottomBorder, rightBorder, Color.black));
         drawCellGraphic();

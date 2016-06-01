@@ -196,7 +196,10 @@ public class GUI extends JPanel {
             gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.gridwidth = 2;
             add(grid, gbc);
-            setPreferredSize(new Dimension(1000, 1000));
+            setMinimumSize(new Dimension(1000, 600));
+            setPreferredSize(new Dimension(1000, 600));
+            setMaximumSize(new Dimension(1000, 600));
+            
             //add (dummy, gbc);
             redraw();
             service = Executors.newSingleThreadScheduledExecutor();
@@ -206,10 +209,10 @@ public class GUI extends JPanel {
 
                     model.moveGhost();
                     System.out.println("move ghost");
-                    //redraw();
+                    redraw();
                 }
-            }, 1000, 1000, TimeUnit.MILLISECONDS);
-
+            }, 0, 1, TimeUnit.SECONDS);
+/*
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
@@ -218,7 +221,7 @@ public class GUI extends JPanel {
                     redraw();
                 }
             }, 500, 500, TimeUnit.MILLISECONDS);
-
+*/
             setKeyBindings();
 
         }

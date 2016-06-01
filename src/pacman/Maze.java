@@ -17,14 +17,16 @@ import pacman.MazeItem.direction;
  */
 public class Maze {
 
-    public static final int SIZEX = 5;
-    public static final int SIZEY = 6;
+    public static final int SIZEX = 11;
+    public static final int SIZEY = 13;
     public static final int DOTSCORE = 100;
-    public static final int SCOREPERLIFE = 10000;
+    public static final int SCOREPERLIFE = 1000;
     private Game currentGame;
     private int sessionScore;
-    int pacPosX;
-    int pacPosY;
+    private int pacPosX;
+    private int pacPosY;
+    private int ghostPosX;
+    private int ghostPosY;
 
     MazeItem[][] realm;
     //Level mazeLevel;
@@ -52,11 +54,11 @@ public class Maze {
             }
 
         }
-        sessionScore=0;
+        sessionScore = 0;
         touchedItems = 1;
         currentItem = realm[0][0];
         itemStack.clear();
-        
+
         makeMazeExplorable();
         //print();
         seed();
@@ -64,32 +66,29 @@ public class Maze {
         //print();
     }
 
-    public void print()
-    {
+    public void print() {
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
-                
-                    System.out.print(i.toString());
-                
+
+                System.out.print(i.toString());
+
             }
             System.out.println();
-        } 
-    }
-    
-    public void levelComplete()
-    {
-        currentGame.setLevel(currentGame.getLevel()+1);
-        currentGame.setScore(currentGame.getScore()+sessionScore);
-        if (currentGame.getScore() % SCOREPERLIFE == 0) {
-            addOneLife();
         }
-        reset();
-        System.out.println("level complete "+currentGame.toString());
     }
-    
-    public int nrDots()
-    {
-        int r=0;
+
+    public void levelComplete() {
+        currentGame.setLevel(currentGame.getLevel() + 1);
+        currentGame.setScore(currentGame.getScore() + sessionScore);
+        
+            addLife(sessionScore/SCOREPERLIFE);
+        
+        reset();
+        System.out.println("level complete " + currentGame.toString());
+    }
+
+    public int nrDots() {
+        int r = 0;
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
                 if (i.getItemContent().contains(content.DOT)) {
@@ -99,13 +98,14 @@ public class Maze {
         }
         return r;
     }
-    
+
     public direction getRandomDirection() {
-        
-        return direction.values()[(int)(Math.random()*(direction.values().length))];
+
+        return direction.values()[(int) (Math.random() * (direction.values().length))];
     }
 
     public MazeItem getPac() {
+        /*
         MazeItem result = new MazeItem();
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
@@ -114,16 +114,18 @@ public class Maze {
                 }
             }
         }
-        return result;
+        */
+        return getField(pacPosX, pacPosY);
     }
 
     public void movePac(direction to) {
         move(getPac(), to);
     }
-    
-    public MazeItem getGhost()
-    {
+
+    public MazeItem getGhost() {
+        /*
         MazeItem result = new MazeItem();
+        
         for (MazeItem[] arr : realm) {
             for (MazeItem i : arr) {
                 if (i.getItemContent().contains(content.GHOST)) {
@@ -131,23 +133,33 @@ public class Maze {
                 }
             }
         }
-        return result;
+        */
+        return getField(ghostPosX, ghostPosY);
     }
+
     public void moveGhost() {
         /*
-        for (MazeItem[] arr : realm) {
-            for (MazeItem i : arr) {
-                if (i.getItemContent().contains(content.GHOST)) {
-                    move(i, getRandomDirection());
-                }
-            }
-        }
-                */
+         for (MazeItem[] arr : realm) {
+         for (MazeItem i : arr) {
+         if (i.getItemContent().contains(content.GHOST)) {
+         move(i, getRandomDirection());
+         }
+         }
+         }
+         */
         move(getGhost(), getRandomDirection());
     }
 
     public synchronized void move(MazeItem item, direction to) {
-        if (validPosToMove(item,to)) {
+        if (validPosToMove(item, to)) {
+            if (item.getVisibleItemContent() == content.PAC) {
+                pacPosX = destX(item, to);
+                pacPosY = destY(item, to);
+            } else if (item.getVisibleItemContent() == content.GHOST) {
+                ghostPosX = destX(item, to);
+                ghostPosY = destY(item, to);
+
+            }
             itemInteract(item, getField(destX(item, to), destY(item, to)));
         }
     }
@@ -176,17 +188,14 @@ public class Maze {
         }
         return true;
     }
-    
-    public boolean validPosToMove(MazeItem item, direction to)
-    {
+
+    public boolean validPosToMove(MazeItem item, direction to) {
         if (!validPos(destX(item, to), destY(item, to))) {
             return false;
+        } else if (item.hasWallOnSide(to)) {
+            return false;
         }
-        else if (item.hasWallOnSide(to))
-                {
-                    return false;
-                }
-        
+
         return true;
     }
 
@@ -213,32 +222,31 @@ public class Maze {
         src.getItemContent().remove(src.getVisibleItemContent());
         src.getItemContent().add(content.EMPTY);
         dest.getItemContent().remove(content.EMPTY);
-        
+
     }
-    
+
     public void removeOneLife() {
 
         currentGame.setLife(currentGame.getLife() - 1);
         currentGame.setLosingLife(true);
         if (currentGame.getLife() == 0) {
-            currentGame.setScore(currentGame.getScore()+sessionScore);
+            currentGame.setScore(currentGame.getScore() + sessionScore);
             currentGame.gameOver();
         }
-        System.out.println("life lost "+currentGame.toString());
+        System.out.println("life lost " + currentGame.toString());
 
     }
 
-    public void addOneLife() {
-        currentGame.setLife(currentGame.getLife() + 1);
+    public void addLife(int x) {
+        currentGame.setLife(currentGame.getLife() + x);
     }
 
     public void addScore() {
         sessionScore += DOTSCORE;
-        System.out.println("new score "+sessionScore);
-        
+        System.out.println("new score " + sessionScore);
+
     }
 
-    
     public MazeItem getField(int x, int y) {
         return realm[y][x];
     }
@@ -293,13 +301,17 @@ public class Maze {
     }
 
     public void seedPac() {
-        realm[0][0].getItemContent().add(content.PAC);
-        realm[0][0].getItemContent().remove(content.EMPTY);
+        pacPosX = 0;
+        pacPosY = 0;
+        realm[pacPosY][pacPosX].getItemContent().add(content.PAC);
+        realm[pacPosY][pacPosX].getItemContent().remove(content.EMPTY);
     }
 
     public void seedGhost() {
-        realm[SIZEY / 2][SIZEX / 2].getItemContent().add(content.GHOST);
-        realm[SIZEY / 2][SIZEX / 2].getItemContent().remove(content.EMPTY);
+        ghostPosX = SIZEX / 2;
+        ghostPosY = SIZEY / 2;
+        realm[ghostPosY][ghostPosX].getItemContent().add(content.GHOST);
+        realm[ghostPosY][ghostPosX].getItemContent().remove(content.EMPTY);
     }
 
     public void seedDots() {
@@ -319,7 +331,7 @@ public class Maze {
         seedDots();
     }
 
-        //public virtual void Serialize();
+    //public virtual void Serialize();
     //public virtual void Deserialize();
     private void pacEat(MazeItem src, MazeItem dest) {
         src.getItemContent().remove(content.PAC);
@@ -327,15 +339,14 @@ public class Maze {
         dest.getItemContent().add(content.PAC);
         dest.getItemContent().remove(content.DOT);
         addScore();
-        if (nrDots()==0)
-        {
+        if (nrDots() == 0) {
             levelComplete();
         }
     }
 
     private void pacDie(MazeItem a, MazeItem b) {
         removeOneLife();
-        
+
         reset();
     }
 
@@ -345,7 +356,7 @@ public class Maze {
     }
 
     private void reset() {
-        
+
         initialize();
     }
 
@@ -360,6 +371,5 @@ public class Maze {
     public int getSessionScore() {
         return sessionScore;
     }
-    
-    
+
 }

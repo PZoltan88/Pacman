@@ -14,6 +14,7 @@ public class Game {
     private int difficulty;
     private int score;
     private int life;
+    private int extraLifeGiven;
     private boolean gameActive;
     private boolean losingLife;
 
@@ -29,6 +30,7 @@ public class Game {
         life=1;
         gameActive=true;
         losingLife=false;
+        extraLifeGiven=0;
     }
 
     
