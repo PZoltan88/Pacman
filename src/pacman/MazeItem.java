@@ -225,6 +225,36 @@ public class MazeItem
     }
 
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MazeItem other = (MazeItem) obj;
+        if (!Objects.equals(this.itemContent, other.itemContent)) {
+            return false;
+        }
+        if (this.hasNorthWall != other.hasNorthWall) {
+            return false;
+        }
+        if (this.hasSouthWall != other.hasSouthWall) {
+            return false;
+        }
+        if (this.hasEastWall != other.hasEastWall) {
+            return false;
+        }
+        if (this.hasWestWall != other.hasWestWall) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+
+    
     
     
 

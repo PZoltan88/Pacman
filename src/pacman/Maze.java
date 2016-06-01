@@ -39,6 +39,19 @@ public class Maze {
 
         initialize();
     }
+    
+    public content[][] getContentData()
+    {
+        content[][] result=new content[SIZEY][SIZEX];
+        for (int i=0; i<Maze.SIZEY;i++)
+        {
+            for (int j=0; j<Maze.SIZEX;j++)
+            {
+            result[i][j]=realm[i][j].getVisibleItemContent();
+            }
+        }
+        return result;
+    }
 
     public void initialize() {
 

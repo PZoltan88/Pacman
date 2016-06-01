@@ -16,23 +16,20 @@ import pacman.MazeItem.content;
  */
 public class MazeGrid extends JPanel{
     private MazeGridItem[][] grid;
-    
-//http://stackoverflow.com/questions/15870608/creating-a-draw-rectangle-filled-with-black-color-function-in-java-for-a-grid
-    /*
-    public MazeGrid() {
-        
-        grid= new MazeGridItem[Maze.SIZEY][Maze.SIZEX];
-        setLayout(new GridLayout(Maze.SIZEX, Maze.SIZEY));
-        draw();
-    }
-    */
+    private content[][] currentMaze;
+    private content[][] prevMaze;
+            
+
     public MazeGrid(Maze model)
     {
+        currentMaze=model.getContentData();
+        prevMaze=model.getContentData();
         grid= new MazeGridItem[Maze.SIZEY][Maze.SIZEX];
         setLayout(new GridLayout(Maze.SIZEY, Maze.SIZEX));
         //print();
         
-        draw(model);
+        drawNew(model);
+        
         System.out.println("draw complete");
         //print();
     }
@@ -40,6 +37,33 @@ public class MazeGrid extends JPanel{
     
     
     public void draw(Maze model)
+    {
+        currentMaze=model.getContentData();
+                
+        for (int i=0; i<Maze.SIZEY;i++)
+        {
+            for (int j=0; j<Maze.SIZEX;j++)
+            {
+                if(prevMaze[i][j]!=currentMaze[i][j])
+                {
+                int topBorder= model.getField(j, i).HasNorthWall() ? 1 :0 ;
+                int bottomBorder= model.getField(j, i).HasSouthWall() ? 1 :0 ;
+                int rightBorder= model.getField(j, i).HasEastWall() ? 1 :0 ;
+                int leftBorder= model.getField(j, i).HasWestWall() ? 1 :0 ;
+                content payload = model.getField(j, i).getVisibleItemContent();
+//                grid[i][j]= new MazeGridItem(topBorder, bottomBorder, rightBorder, leftBorder, payload);
+//                add(grid[i][j]);
+                grid[i][j].redraw(payload);
+                }
+            }
+        }
+        System.out.println("");
+        prevMaze=currentMaze;
+        System.out.println("draw complete");
+        //print();
+    }
+    
+    public void drawNew(Maze model)
     {
         
                 

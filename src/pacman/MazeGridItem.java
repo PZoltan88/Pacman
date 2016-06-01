@@ -69,6 +69,14 @@ public class MazeGridItem extends JPanel {
         setVisible(true);
     }
 
+    public void redraw(content c)
+    {
+        payload=c;
+        removeAll();
+                draw();
+                revalidate();
+                repaint();
+    }
     public void drawCellGraphic() {
 
         switch (payload) {
@@ -115,6 +123,10 @@ public class MazeGridItem extends JPanel {
      g.drawRect(0,0,50,50);
      }
      */
+
+    public void setPayload(content payload) {
+        this.payload = payload;
+    }
 
     @Override
     public String toString() {

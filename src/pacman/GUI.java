@@ -201,7 +201,7 @@ public class GUI extends JPanel {
             setMaximumSize(new Dimension(1000, 600));
             
             //add (dummy, gbc);
-            redraw();
+//            redraw();
             service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
@@ -272,13 +272,13 @@ public class GUI extends JPanel {
                     JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
                     model.getCurrentGame().setLosingLife(false);
                 }
-                grid.removeAll();
+//                grid.removeAll();
                 grid.draw(model);
                 setStatusBar();
 //            grid.setVisible(false);
 //            grid.setVisible(true);
-                grid.revalidate();
-                grid.repaint();
+//                grid.revalidate();
+//                grid.repaint();
             }
 
         }
