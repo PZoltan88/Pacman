@@ -114,7 +114,7 @@ public class GUI extends JPanel {
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(exit, gbc);
-        setPreferredSize(new Dimension(400, 400));
+        setPreferredSize(new Dimension(1000, 600));
         initFrame();
 
     }
@@ -196,7 +196,7 @@ public class GUI extends JPanel {
             gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.gridwidth = 2;
             add(grid, gbc);
-            setPreferredSize(new Dimension(800, 600));
+            setPreferredSize(new Dimension(1000, 1000));
             //add (dummy, gbc);
             redraw();
             service = Executors.newSingleThreadScheduledExecutor();

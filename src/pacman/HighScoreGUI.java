@@ -27,9 +27,11 @@ public class HighScoreGUI extends JPanel {
 
     public HighScoreGUI() {
         title = new JLabel("Highscores");
-        //title.setPreferredSize(new Dimension(100,80));
-        title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 32));
+        title.setFont(new Font("Courier New", 1, 24));
+        
         back = new JButton("Back to Main menu");
+        back.setFont(new Font("Courier New", 1, 14));
+        
         back.addActionListener(new ActionListener() {
 
             @Override
@@ -51,6 +53,7 @@ public class HighScoreGUI extends JPanel {
         loadScoreData();
         JScrollPane tableHolder=new JScrollPane(scores);
         scores.setFillsViewportHeight(true);
+        tableHolder.setMinimumSize(new Dimension(250, 100));
         
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -73,6 +76,7 @@ public class HighScoreGUI extends JPanel {
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(back, gbc);
+        setPreferredSize(new Dimension(300, 300));
     }
 
     private void loadScoreData() {
