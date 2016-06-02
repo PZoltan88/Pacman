@@ -38,7 +38,8 @@ public class GUI extends JPanel {
 
     public GUI(Maze maze) {
         JLabel title = new JLabel("Pacman");
-        title.setFont(new Font("Courier New", 1, 24));
+        title.setFont(new Font("Arial", 1, 48));
+        title.setForeground(Color.blue);
 
         JButton newGame = new JButton("New Game");
         newGame.setFont(new Font("Courier New", 1, 14));
@@ -144,7 +145,7 @@ public class GUI extends JPanel {
         final ScheduledExecutorService service;
 
         public MazeGUI(Maze maze) {
-            lifesLbl = new JLabel("Lifes");
+            lifesLbl = new JLabel("Lives");
             lifesLbl.setFont(new Font("Courier New", Font.BOLD, 14));
             
             lifes = new JLabel();
