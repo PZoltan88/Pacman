@@ -1,4 +1,4 @@
-package pacman;
+package pacman.buslogic;
 
 public class Game {
     private int level;

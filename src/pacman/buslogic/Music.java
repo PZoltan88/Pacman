@@ -1,4 +1,4 @@
-package pacman;
+package pacman.buslogic;
 
 import sun.audio.*;
 import java.io.*;

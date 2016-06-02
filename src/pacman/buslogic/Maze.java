@@ -1,10 +1,10 @@
-package pacman;
+package pacman.buslogic;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
-import pacman.MazeItem.content;
-import pacman.MazeItem.direction;
+import pacman.buslogic.MazeItem.content;
+import pacman.buslogic.MazeItem.direction;
 
 public class Maze {
 
@@ -65,7 +65,7 @@ public class Maze {
         makeMazeExplorable();
         //print();
         seed();
-        System.out.println("seed complete");
+//        System.out.println("seed complete");
         //print();
     }
 
@@ -87,7 +87,7 @@ public class Maze {
             addLife(sessionScore/SCOREPERLIFE);
         
         reset();
-        System.out.println("level complete " + currentGame.toString());
+//        System.out.println("level complete " + currentGame.toString());
     }
 
     public int nrDots() {
@@ -206,7 +206,7 @@ public class Maze {
             currentGame.setScore(currentGame.getScore() + sessionScore);
             currentGame.gameOver();
         }
-        System.out.println("life lost " + currentGame.toString());
+//        System.out.println("life lost " + currentGame.toString());
 
     }
 
@@ -216,7 +216,7 @@ public class Maze {
 
     public void addScore() {
         sessionScore += DOTSCORE;
-        System.out.println("new score " + sessionScore);
+//        System.out.println("new score " + sessionScore);
 
     }
 

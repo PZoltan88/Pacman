@@ -1,4 +1,4 @@
-package pacman;
+package pacman.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import pacman.MazeItem.content;
+import pacman.buslogic.MazeItem.content;
 
 public class MazeGridItem extends JPanel {
 

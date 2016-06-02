@@ -1,4 +1,4 @@
-package pacman;
+package pacman.gui;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.JPanel;
+import pacman.buslogic.HighScoreModel;
 
 public class GameOverGUI extends JPanel {
 

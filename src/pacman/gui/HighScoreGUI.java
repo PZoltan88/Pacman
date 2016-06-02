@@ -1,5 +1,6 @@
-package pacman;
+package pacman.gui;
 
+import pacman.gui.GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,6 +10,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import pacman.buslogic.Game;
+import pacman.buslogic.HighScoreModel;
+import pacman.buslogic.Maze;
 
 public class HighScoreGUI extends JPanel {
 

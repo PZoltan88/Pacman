@@ -1,4 +1,4 @@
-package pacman;
+package pacman.buslogic;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

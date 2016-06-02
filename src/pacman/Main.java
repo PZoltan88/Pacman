@@ -1,5 +1,9 @@
 package pacman;
 
+import pacman.buslogic.Music;
+import pacman.buslogic.Maze;
+import pacman.buslogic.Game;
+import pacman.gui.GUI;
 import javax.swing.SwingUtilities;
 
 public class Main {

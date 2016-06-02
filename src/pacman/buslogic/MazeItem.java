@@ -1,4 +1,4 @@
-package pacman;
+package pacman.buslogic;
 
 import java.util.*;
 import java.util.EnumSet;

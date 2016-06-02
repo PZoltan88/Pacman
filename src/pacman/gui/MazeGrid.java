@@ -1,9 +1,10 @@
-package pacman;
+package pacman.gui;
 
 import java.awt.GridLayout;
 import javax.swing.JPanel;
-import pacman.Maze;
-import pacman.MazeItem.content;
+import pacman.buslogic.Maze;
+import pacman.buslogic.Maze;
+import pacman.buslogic.MazeItem.content;
 
 public class MazeGrid extends JPanel{
     private MazeGridItem[][] grid;
@@ -20,7 +21,7 @@ public class MazeGrid extends JPanel{
          
         drawNew(model);
         
-        System.out.println("draw complete");
+//        System.out.println("draw complete");
     }
     
     
@@ -35,18 +36,18 @@ public class MazeGrid extends JPanel{
             {
                 if(prevMaze[i][j]!=currentMaze[i][j])
                 {
-                int topBorder= model.getField(j, i).HasNorthWall() ? 1 :0 ;
-                int bottomBorder= model.getField(j, i).HasSouthWall() ? 1 :0 ;
-                int rightBorder= model.getField(j, i).HasEastWall() ? 1 :0 ;
-                int leftBorder= model.getField(j, i).HasWestWall() ? 1 :0 ;
+//                int topBorder= model.getField(j, i).HasNorthWall() ? 1 :0 ;
+//                int bottomBorder= model.getField(j, i).HasSouthWall() ? 1 :0 ;
+//                int rightBorder= model.getField(j, i).HasEastWall() ? 1 :0 ;
+//                int leftBorder= model.getField(j, i).HasWestWall() ? 1 :0 ;
                 content payload = model.getField(j, i).getVisibleItemContent();
                 grid[i][j].redraw(payload);
                 }
             }
         }
-        System.out.println("");
+//        System.out.println("");
         prevMaze=currentMaze;
-        System.out.println("draw complete");
+//        System.out.println("draw complete");
     }
     
     public void drawNew(Maze model)
@@ -66,7 +67,7 @@ public class MazeGrid extends JPanel{
                 add(grid[i][j]);
             }
         }
-        System.out.println("draw complete");
+//        System.out.println("draw complete");
     }
     
     public void print()
