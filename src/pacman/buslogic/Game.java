@@ -16,7 +16,7 @@ public class Game {
     
     public void initValues()
     {
-        level=1;
+        level=3;
         difficulty=1;
         score=0;
         life=1;

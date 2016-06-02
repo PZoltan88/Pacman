@@ -10,6 +10,7 @@ public class MazeGrid extends JPanel{
     private MazeGridItem[][] grid;
     private content[][] currentMaze;
     private content[][] prevMaze;
+    private boolean firstDraw;
             
 
     public MazeGrid(Maze model)
@@ -29,7 +30,17 @@ public class MazeGrid extends JPanel{
     public void draw(Maze model)
     {
         currentMaze=model.getContentData();
-                
+        
+        if (firstDraw)
+        {
+            removeAll();
+            drawNew(model);
+            
+            setVisible(true);
+            revalidate();
+            repaint();
+        }
+        else{
         for (int i=0; i<Maze.SIZEY;i++)
         {
             for (int j=0; j<Maze.SIZEX;j++)
@@ -45,14 +56,16 @@ public class MazeGrid extends JPanel{
                 }
             }
         }
+        }
 //        System.out.println("");
         prevMaze=currentMaze;
 //        System.out.println("draw complete");
+        firstDraw=false;
     }
     
     public void drawNew(Maze model)
     {
-        
+        firstDraw=true;
                 
         for (int i=0; i<Maze.SIZEY;i++)
         {

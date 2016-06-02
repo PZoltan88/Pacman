@@ -255,11 +255,23 @@ public class GUI extends JPanel {
             } else {
                 if (model.getCurrentGame().isLosingLife()) {
                     JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
+                    grid.removeAll();
+                grid.drawNew(model);
+                grid.setVisible(true);
+                grid.revalidate();
+                grid.repaint();
+                   
+                setStatusBar(); 
                     model.getCurrentGame().setLosingLife(false);
                 }
                 else if(model.getCurrentGame().isAdvancingLevel())
                 {
-                   grid.drawNew(model);
+                    grid.removeAll();
+                grid.drawNew(model);
+                grid.setVisible(true);
+                grid.revalidate();
+                grid.repaint();
+                   
                 setStatusBar(); 
                 model.getCurrentGame().setAdvancingLevel(false);
                 }

@@ -8,8 +8,8 @@ import pacman.buslogic.MazeItem.direction;
 
 public class Maze {
 
-    public static final int SIZEX = 11;
-    public static final int SIZEY = 13;
+    public static final int SIZEX = 5;
+    public static final int SIZEY = 6;
     public static final int DOTSCORE = 100;
     public static final int SCOREPERLIFE = 1000;
     private Game currentGame;
