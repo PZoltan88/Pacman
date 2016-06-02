@@ -1,6 +1,7 @@
 package pacman;
 
 import java.awt.Color;
+import java.awt.Window;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,17 +36,21 @@ public class GUI extends JPanel {
     JFrame topFrame;
 
     public GUI(Maze maze) {
+        
         JLabel title = new JLabel("Pacman");
         title.setFont(new Font("Courier New", 1, 24));
 
         JButton newGame = new JButton("New Game");
         newGame.setFont(new Font("Courier New", 1, 14));
-
+        newGame.setPreferredSize(new Dimension(150, 25));
+        
         JButton highScores = new JButton("Highscores");
         highScores.setFont(new Font("Courier New", 1, 14));
+        highScores.setPreferredSize(new Dimension(150, 25));
 
         JButton exit = new JButton("Exit");
         exit.setFont(new Font("Courier New", 1, 14));
+        exit.setPreferredSize(new Dimension(150, 25));
 
         setLayout(new GridBagLayout());
         setBackground(Color.decode("#40E0D0"));
@@ -119,6 +124,7 @@ public class GUI extends JPanel {
         topFrame.setTitle("Chlebovics Kornél(VYSQGW) & Papp Zoltán(N3GM04)");
         topFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         topFrame.pack();
+        topFrame.setLocationRelativeTo(null);
         topFrame.setVisible(true);
     }
 
@@ -159,7 +165,7 @@ public class GUI extends JPanel {
             model.getCurrentGame().initValues();
             setStatusBar();
             grid = new MazeGrid(maze);
-             setLayout(new GridBagLayout());
+            setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
           
             gbc.gridx = 0;
