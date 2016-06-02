@@ -18,7 +18,7 @@ public class GameOverGUI extends JPanel {
     public GameOverGUI(int score, JFrame frame) {
         this.topFrame=frame;
         setBackground(Color.decode("#40E0D0"));
-        JLabel title = new JLabel("Game over");
+        JLabel title = new JLabel("Game Over");
         title.setFont(new Font("Courier New", 1, 14));
         
         JLabel nameLbl = new JLabel("Enter player name:");
