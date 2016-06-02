@@ -8,6 +8,7 @@ public class Game {
     private int extraLifeGiven;
     private boolean gameActive;
     private boolean losingLife;
+    private boolean advancingLevel;
 
     public Game() {
         initValues();
@@ -22,6 +23,8 @@ public class Game {
         gameActive=true;
         losingLife=false;
         extraLifeGiven=0;
+        advancingLevel=false;
+        
     }
 
     
@@ -81,6 +84,14 @@ public class Game {
 
     public void setGameActive(boolean gameActive) {
         this.gameActive = gameActive;
+    }
+
+    public boolean isAdvancingLevel() {
+        return advancingLevel;
+    }
+
+    public void setAdvancingLevel(boolean advancingLevel) {
+        this.advancingLevel = advancingLevel;
     }
     
     

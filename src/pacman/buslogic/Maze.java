@@ -87,6 +87,7 @@ public class Maze {
             addLife(sessionScore/SCOREPERLIFE);
         
         reset();
+        currentGame.setAdvancingLevel(true);
 //        System.out.println("level complete " + currentGame.toString());
     }
 

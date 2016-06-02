@@ -257,8 +257,16 @@ public class GUI extends JPanel {
                     JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
                     model.getCurrentGame().setLosingLife(false);
                 }
+                else if(model.getCurrentGame().isAdvancingLevel())
+                {
+                   grid.drawNew(model);
+                setStatusBar(); 
+                model.getCurrentGame().setAdvancingLevel(false);
+                }
+                else{
                 grid.draw(model);
                 setStatusBar();
+                }
             }
 
         }
