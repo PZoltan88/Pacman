@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -14,10 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-/**
- *
- * @author 604772006
- */
 public class HighScoreGUI extends JPanel {
 
     private JLabel title;
@@ -37,14 +29,12 @@ public class HighScoreGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                                 
-                //(JFrame)(getRootPane().getParent()).dispose();
                 topFrame.dispose();
                 Maze m = new Maze();
                 m.setCurrentGame(new Game());
 
                 GUI g = new GUI(m);
-                //this.dispose();
-
+                
             }
         });
 
@@ -62,6 +52,7 @@ public class HighScoreGUI extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30, 0, 0, 0);
         add(title, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -70,26 +61,20 @@ public class HighScoreGUI extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30, 0, 0, 0);
         add(tableHolder,gbc);
+        
         gbc.ipady = 0;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(30, 0, 0, 0);
         gbc.anchor = GridBagConstraints.CENTER;
         add(back, gbc);
+        
         setPreferredSize(new Dimension(300, 300));
+        setBackground(Color.decode("#40E0D0"));
     }
 
     private void loadScoreData() {
-        //String[] columnNames = {"Rank", "Player name", "Score"};
-//        Object[][] rowData= {{"","",""},{"","",""}};
         HighScoreModel hiscoreData=new HighScoreModel();
-//        test
-//        hiscoreData.readFile();
-//        hiscoreData.updateHiScore("playa", 1000);
-//        hiscoreData.updateHiScore("playa", 2000);
-//        hiscoreData.updateHiScore("playa", 3000);
-//        hiscoreData.updateHiScore("playa", 1000);
-//        hiscoreData.writeFile();
         hiscoreData.readFile();
         scores= new JTable();
         scores.setModel(hiscoreData.getHiScoreData());

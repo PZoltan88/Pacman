@@ -1,5 +1,6 @@
 package pacman;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +16,7 @@ public class GameOverGUI extends JPanel {
 
     public GameOverGUI(int score, JFrame frame) {
         this.topFrame=frame;
+        setBackground(Color.decode("#40E0D0"));
         JLabel title = new JLabel("Game over");
         title.setFont(new Font("Courier New", 1, 14));
         
@@ -63,33 +65,34 @@ public class GameOverGUI extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(30, 0, 0, 0);
         add(title, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;        
         gbc.insets = new Insets(30, 0, 0, 0);
         add(scoreLbl,gbc );
+        
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;        
         gbc.insets = new Insets(30, 0, 0, 0);
         add(playerScore, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.anchor = GridBagConstraints.CENTER;
-//        gbc.insets = new Insets(30, 0, 0, 0);
         add(nameLbl, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.weightx = 0.5;
         gbc.anchor = GridBagConstraints.CENTER;
-//        gbc.insets = new Insets(0, 5, 0, 0);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(name, gbc);
+        
         gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.CENTER;
-        
-
+        gbc.anchor = GridBagConstraints.CENTER;        
         gbc.insets = new Insets(30, 0, 0, 0);
         add(okBtn, gbc);
 

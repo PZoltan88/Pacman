@@ -34,7 +34,6 @@ public class GUI extends JPanel {
 
     JFrame topFrame;
 
-    //private Maze maze;
     public GUI(Maze maze) {
         JLabel title = new JLabel("Pacman");
         title.setFont(new Font("Courier New", 1, 24));
@@ -55,11 +54,6 @@ public class GUI extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                 for (Component component : getComponents()) {
-                 component.setVisible(false);
-                 }
-                 */
                 MazeGUI mgui = new MazeGUI(maze);
                 removeAll();
                 add(mgui);
@@ -165,12 +159,9 @@ public class GUI extends JPanel {
             model.getCurrentGame().initValues();
             setStatusBar();
             grid = new MazeGrid(maze);
-            //setFocusable(true);
-            //requestFocusInWindow();
-            //addKeyListener(this);
-            setLayout(new GridBagLayout());
+             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
-            //gbc.anchor = GridBagConstraints.CENTER;
+          
             gbc.gridx = 0;
             gbc.gridy = 0;
             add(lifesLbl, gbc);
@@ -197,11 +188,8 @@ public class GUI extends JPanel {
             gbc.gridwidth = 2;
             add(grid, gbc);
             setMinimumSize(new Dimension(1000, 600));
-            setPreferredSize(new Dimension(1000, 600));
-            setMaximumSize(new Dimension(1000, 600));
+            setBackground(Color.decode("#40E0D0"));
             
-            //add (dummy, gbc);
-//            redraw();
             service = Executors.newSingleThreadScheduledExecutor();
             service.scheduleWithFixedDelay(new Runnable() {
                 @Override
@@ -212,16 +200,7 @@ public class GUI extends JPanel {
                     redraw();
                 }
             }, 0, 1, TimeUnit.SECONDS);
-/*
-            service.scheduleWithFixedDelay(new Runnable() {
-                @Override
-                public void run() {
 
-                    //model.moveGhost();
-                    redraw();
-                }
-            }, 500, 500, TimeUnit.MILLISECONDS);
-*/
             setKeyBindings();
 
         }
@@ -236,7 +215,7 @@ public class GUI extends JPanel {
 
         public synchronized void redraw() {
             if (!model.getCurrentGame().isGameActive()) {
-//                JOptionPane.showMessageDialog(null, "Game over", "game over", JOptionPane.ERROR_MESSAGE);
+
                 //Újrarajzolás időzítés lekapcsolása
                 service.shutdown();
                 //Kurzorbillentyűk eseményeinek leállítása
@@ -272,13 +251,8 @@ public class GUI extends JPanel {
                     JOptionPane.showMessageDialog(null, "1 life lost. Restarting level...", "Life lost", JOptionPane.INFORMATION_MESSAGE);
                     model.getCurrentGame().setLosingLife(false);
                 }
-//                grid.removeAll();
                 grid.draw(model);
                 setStatusBar();
-//            grid.setVisible(false);
-//            grid.setVisible(true);
-//                grid.revalidate();
-//                grid.repaint();
             }
 
         }
@@ -320,7 +294,6 @@ public class GUI extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent actionEvt) {
-                //System.out.println(actionEvt.getActionCommand() + " pressed");
                 switch (actionEvt.getActionCommand()) {
                     case "VK_LEFT":
                         System.out.println("left pressed");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
 import java.io.FileInputStream;
@@ -21,10 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author 604772006
- */
 public class HighScoreModel implements Serializable {
 
     public static final String SCOREFILENAME = "highscores.bin";
@@ -35,9 +26,6 @@ public class HighScoreModel implements Serializable {
     }
 
     public void writeFile() {
-//        readFile();
-//        ObjectOutputStream oos = null;
-//        FileOutputStream fout = null;
         try {
             FileOutputStream fout = new FileOutputStream(SCOREFILENAME);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
@@ -46,19 +34,7 @@ public class HighScoreModel implements Serializable {
             fout.close();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        /*
-         finally {
-         if (oos != null) {
-         try {
-         oos.close();
-         fout.close();
-         } catch (IOException ex) {
-         Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }
-         }
-         */
+        }       
     }
 
     public void updateHiScore(String name, int score) {
@@ -69,9 +45,6 @@ public class HighScoreModel implements Serializable {
 
     public void readFile() {
 
-        //hiScores = new ArrayList<>();
-//        ObjectInputStream objectinputstream = null;
-//        FileInputStream streamIn = null;
         if (Files.notExists(Paths.get(SCOREFILENAME), LinkOption.NOFOLLOW_LINKS)) {
             try {
                 Files.createFile(Paths.get(SCOREFILENAME));
@@ -93,30 +66,16 @@ public class HighScoreModel implements Serializable {
                 hiScores = (ArrayList<Score>) objectinputstream.readObject();
                 objectinputstream.close();
                 streamIn.close();
-            //hiScores = readCase;
-                //System.out.println(recordList.get(i));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        /*
-         finally {
-         if (objectinputstream != null) {
-         try {
-         objectinputstream.close();
-         streamIn.close();
-         } catch (IOException ex) {
-         Logger.getLogger(HighScoreModel.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }
-         }
-         */
     }
 
     public DefaultTableModel getHiScoreData() {
         String[] columnName = {"Rank", "Player name", "Score"};
         DefaultTableModel eredmeny = new DefaultTableModel(columnName, 0);
-        //readFile();
+        
         Collections.sort(hiScores, new Comparator<Score>() {
 
             @Override
@@ -146,7 +105,6 @@ public class HighScoreModel implements Serializable {
         String result = "";
         for (Score s : hiScores) {
             result += s.toString();
-            //result += "\n";
         }
         return result;
     }
@@ -154,7 +112,6 @@ public class HighScoreModel implements Serializable {
     private void readObject(
             ObjectInputStream aInputStream
     ) throws ClassNotFoundException, IOException {
-        //always perform the default de-serialization first
         aInputStream.defaultReadObject();
 
     }
@@ -162,18 +119,15 @@ public class HighScoreModel implements Serializable {
     private void writeObject(
             ObjectOutputStream aOutputStream
     ) throws IOException {
-        //perform the default serialization for all non-transient, non-static fields
         aOutputStream.defaultWriteObject();
     }
 
     private class Score implements Serializable {
 
-        //private int rank;
         private String playerName;
         private int score;
 
         public Score(String playerName, int score) {
-//            this.rank = rank;
             this.playerName = playerName;
             this.score = score;
         }
@@ -186,7 +140,6 @@ public class HighScoreModel implements Serializable {
         private void readObject(
                 ObjectInputStream aInputStream
         ) throws ClassNotFoundException, IOException {
-            //always perform the default de-serialization first
             aInputStream.defaultReadObject();
 
         }
@@ -194,7 +147,6 @@ public class HighScoreModel implements Serializable {
         private void writeObject(
                 ObjectOutputStream aOutputStream
         ) throws IOException {
-            //perform the default serialization for all non-transient, non-static fields
             aOutputStream.defaultWriteObject();
         }
 

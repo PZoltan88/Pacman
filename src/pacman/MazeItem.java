@@ -1,19 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
-
 
 import java.util.*;
 import java.util.EnumSet;
 import javax.swing.DefaultListModel;
 
-/**
- *
- * @author Kornél
- */
 public class MazeItem
     {
         public enum direction
@@ -34,7 +24,6 @@ public class MazeItem
         }
         private List<content> itemContent;
 
-        //List<direction> wallsOfItem;
         private boolean hasNorthWall;
         private boolean hasSouthWall;
         private boolean hasEastWall;
@@ -42,10 +31,7 @@ public class MazeItem
 
         private int posX;
         private int posY;
-
-        //static int fieldSize = 15;
-
-       
+ 
         public MazeItem()
         {
             this(true, true, true, true, 0,0);
@@ -108,26 +94,10 @@ public class MazeItem
             }
         }
 
-        //public int[] GetCoordinate();
-        /*
-        public boolean canMove()
-        {
-            if (itemContent==content.PAC || itemContent==content.GHOST)
-            {
-                return true;
-            }
-            return false;
-        }
-*/
-        
-
-
         public boolean HasAllWalls()
         {
             return (this.hasEastWall && this.hasNorthWall && this.hasSouthWall && this.hasWestWall);
         }
-
-        //public abstract void Draw(Graphics g);
 
     public List<content> getItemContent() {
         return itemContent;
@@ -150,22 +120,16 @@ public class MazeItem
             {
                 case NORTH:
                     return hasNorthWall;
-                    //break;
 
                 case SOUTH:
                     return hasSouthWall;
-                    
-                    //break;
 
                 case EAST:
                     return hasEastWall;
-                    
-                    //break;
-
+ 
                 case WEST:
                     return hasWestWall;
-                    
-                    //break;
+ 
                 default:
                     return true;
             }

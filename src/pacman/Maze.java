@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pacman;
 
 import java.util.ArrayList;
@@ -11,10 +6,6 @@ import java.util.Stack;
 import pacman.MazeItem.content;
 import pacman.MazeItem.direction;
 
-/**
- *
- * @author Kornél
- */
 public class Maze {
 
     public static final int SIZEX = 11;
@@ -29,7 +20,6 @@ public class Maze {
     private int ghostPosY;
 
     MazeItem[][] realm;
-    //Level mazeLevel;
     int touchedItems = 1;
     Stack itemStack = new Stack();
     MazeItem currentItem = null;
@@ -118,16 +108,6 @@ public class Maze {
     }
 
     public MazeItem getPac() {
-        /*
-        MazeItem result = new MazeItem();
-        for (MazeItem[] arr : realm) {
-            for (MazeItem i : arr) {
-                if (i.getItemContent().contains(content.PAC)) {
-                    result = i;
-                }
-            }
-        }
-        */
         return getField(pacPosX, pacPosY);
     }
 
@@ -136,30 +116,10 @@ public class Maze {
     }
 
     public MazeItem getGhost() {
-        /*
-        MazeItem result = new MazeItem();
-        
-        for (MazeItem[] arr : realm) {
-            for (MazeItem i : arr) {
-                if (i.getItemContent().contains(content.GHOST)) {
-                    result = i;
-                }
-            }
-        }
-        */
         return getField(ghostPosX, ghostPosY);
     }
 
     public void moveGhost() {
-        /*
-         for (MazeItem[] arr : realm) {
-         for (MazeItem i : arr) {
-         if (i.getItemContent().contains(content.GHOST)) {
-         move(i, getRandomDirection());
-         }
-         }
-         }
-         */
         move(getGhost(), getRandomDirection());
     }
 
@@ -267,19 +227,18 @@ public class Maze {
     public ArrayList getNeighborFieldsWithWalls(MazeItem item) {
         ArrayList<MazeItem> Neighbors = new ArrayList<>();
 
-        // has left neighbor?
-        if ((0 <= (item.getPosX()) - 1) && (realm[item.getPosY()][item.getPosX() - 1].HasAllWalls())) {
+          if ((0 <= (item.getPosX()) - 1) && (realm[item.getPosY()][item.getPosX() - 1].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY()][item.getPosX() - 1]);
         }
-        // has right neighbor?
+
         if (((item.getPosX() + 1) < SIZEX) && (realm[item.getPosY()][item.getPosX() + 1].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY()][item.getPosX() + 1]);
         }
-        // has top neighbor?
+    
         if ((0 <= (item.getPosY() - 1)) && (realm[item.getPosY() - 1][item.getPosX()].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY() - 1][item.getPosX()]);
         }
-        // has bottom neighbor?
+   
         if (((item.getPosY() + 1) < SIZEY) && (realm[item.getPosY() + 1][item.getPosX()].HasAllWalls())) {
             Neighbors.add(realm[item.getPosY() + 1][item.getPosX()]);
         }
@@ -288,9 +247,6 @@ public class Maze {
 
     }
 
-    /// <summary>
-    /// Main logic to make the maze explorable - every field of the maze should be accessible by Pac
-    /// </summary>
     public void makeMazeExplorable() {
 
         int realmSize = SIZEX * SIZEY;
@@ -301,13 +257,11 @@ public class Maze {
             if (neighborFieldsWithWalls.size() > 0) {
                 int randomNum0ToWallNr = randomizer.nextInt(neighborFieldsWithWalls.size());
                 MazeItem randomField = neighborFieldsWithWalls.toArray(new MazeItem[0])[randomNum0ToWallNr];
-                //randomField.DeleteWallsInBetween(currentItem);
                 currentItem.DeleteWallsInBetween(randomField);
                 itemStack.push(currentItem);
                 currentItem = randomField;
                 touchedItems++;
             } else {
-                //!!!!InvalidOperationException - "Stack empty" unhandled
                 currentItem = (MazeItem) itemStack.pop();
             }
         }
@@ -344,8 +298,6 @@ public class Maze {
         seedDots();
     }
 
-    //public virtual void Serialize();
-    //public virtual void Deserialize();
     private void pacEat(MazeItem src, MazeItem dest) {
         src.getItemContent().remove(content.PAC);
         src.getItemContent().add(content.EMPTY);
